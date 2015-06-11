@@ -1,0 +1,37 @@
+https://www.tumblr.com/docs/en/api/v2
+https://www.tumblr.com/docs/en/custom_themes
+
+variables
+    {<Title>} ->
+        {{ <Title> }}
+
+blocks
+    {block:<Pagination>}{/block:<Pagination>} ->
+        {% if <Pagination> %} {% endif %}
+
+post list
+    {block:Posts} {/block:Posts} ->
+        {% for post in posts %} {% endfor %}
+
+    &: variables
+        {<Body>} ->
+            {{ post.<body> }}
+
+    &: blocks
+        {block:<ATTR>} {/block:<ATTR>} ->
+            {% if post.<attr>%} {% endif %}
+
+    &: post type blocks
+        where attr in:
+            text, photo, panorama, photoset, quote, link, chat, audio, video, answer
+        {block:<ATTR>} {/block:<ATTR>} ->
+            {% if post.type=='<attr>'%} {% endif %}
+
+Pagination
+    WIP
+
+Pages, like, besides the main one
+    WIP
+
+Excluded
+    post types: panorama, audio, video, photoset

@@ -1,53 +1,38 @@
 # builtin
-import os
-import re
-import contextlib
-from collections import deque
 # ext
-import six
 import flask
-import jinja2
-from jinja2 import Markup
-from jinja2.ext import Extension
-from jinja2.runtime import Undefined
 # local
-import nodes
-from parser import Parser
-from compiler import Compiler
 
 app = flask.Flask(__name__)
 DEBUG = True
 app.config.from_object(__name__)
 
-class TumblrParser(Extension):
+def clean_html (self, html):
+    # cleans html to prevent people doing evil things with it like
+    # like... idk. things with evil scripts and inline css
+    from bs4 import BeautifulSoup
+    html = BeautifulSoup(html)
+    # destroy evil tags
+    for tag in html(['iframe', 'script']): tag.decompose()
+    # remove evil attributes
+    for tag in html():
+        for attribute in ["class", "id", "name", "style", "data"]:
+            del tag[attribute]
+    return str(html)
 
-    options={}
+def snippet(text, path):
+    for seperator in ('<readmore/>', '<br>', '<br/>', '</p>'):
+        if seperator in text:
+            break
+    snip = text.split(seperator, 1)[0]
+    url = '/posts/'+path.split('/')[-1].split('.')[0]
+    snip += '<div class="readmore"><a href="{}" title="the post\'s not done! Here\'s the rest">Continued...</a></div>'.format(url)
+    return snip
 
-    def __init__(self, environment):
-
-        super(TumblrParser, self).__init__(environment)
-
-        environment.extend(tumblr=self)
-
-        self.variable_start_string = environment.variable_start_string
-        self.variable_end_string = environment.variable_end_string
-        self.options["variable_start_string"] = environment.variable_start_string
-        self.options["variable_end_string"] = environment.variable_end_string
-
-    def preprocess(self, source, name, filename=None):
-        if not name:
-            return source
-        else:
-            parser = Parser(source ,filename=filename)
-            block = parser.parse()
-            compiler = Compiler(block, **self.options)
-            return compiler.compile().strip()
 
 @app.route('/')
 def index ():
-    # app.jinja_env.add_extension('pyjade.ext.jinja.')
-    app.jinja_env.add_extension('main.TumblrParser')
-    return flask.render_template('mew.html', mew='great')
+    return flask.render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
