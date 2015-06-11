@@ -1,4 +1,6 @@
 # builtin
+import re
+import string
 # ext
 import flask
 # local
@@ -7,32 +9,49 @@ app = flask.Flask(__name__)
 DEBUG = True
 app.config.from_object(__name__)
 
-def clean_html (self, html):
-    # cleans html to prevent people doing evil things with it like
-    # like... idk. things with evil scripts and inline css
-    from bs4 import BeautifulSoup
-    html = BeautifulSoup(html)
-    # destroy evil tags
-    for tag in html(['iframe', 'script']): tag.decompose()
-    # remove evil attributes
-    for tag in html():
-        for attribute in ["class", "id", "name", "style", "data"]:
-            del tag[attribute]
-    return str(html)
-
-def snippet(text, path):
-    for seperator in ('<readmore/>', '<br>', '<br/>', '</p>'):
-        if seperator in text:
-            break
-    snip = text.split(seperator, 1)[0]
-    url = '/posts/'+path.split('/')[-1].split('.')[0]
-    snip += '<div class="readmore"><a href="{}" title="the post\'s not done! Here\'s the rest">Continued...</a></div>'.format(url)
-    return snip
+def sub_var_tumblr_to_jinja(match):
+    match = match.group(0)
+    # python variables can't have - in the name
+    match = re.sub(r'\-', '_', match)
+    # tumblr variable -> jinja variable
+    match = '{'+match+'}'
+    return match
 
 def tumblify(path):
+    # format the html file
     with open('templates/'+path, 'r') as f:
-        html = f.read()
-    context = {}
+        html = f.readlines()
+    _html = ''
+    for line in html:
+        _html += line.strip()
+    html = _html
+
+    # template variable context
+    context = {
+        'output': '\n\n'
+    }
+
+
+    RE_VARIABLE = r'(?is)(?<!\{)\{[A-Z0-9 _-]*\}(?!\})'
+    RE_BLOCK    = r'(?is)\{block\:[A-Z0-9 _-]*\}.*\{\/block\:[A-Z0-9 _-]*\}'
+    RE_POSTS    = r'(?is)\{block\:posts\}.*\{\/block\:posts\}'
+
+    post_types = ['text', 'photo', 'panorama', 'photoset', 'quote', 'link', 'chat', 'audio', 'video', 'answer']
+
+    # parse all variables
+    html = re.sub(RE_VARIABLE, sub_var_tumblr_to_jinja, html)
+
+    # parse blocks
+    # parse post variables
+    # parse post types
+    # parse post blocks
+
+    # formatting
+    context['output'] += '\n\n'
+    from bs4 import BeautifulSoup
+    html = BeautifulSoup(html).prettify()
+
+    print(html)
     return html, context
 
 @app.route('/')
