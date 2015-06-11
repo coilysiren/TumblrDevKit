@@ -29,10 +29,16 @@ def snippet(text, path):
     snip += '<div class="readmore"><a href="{}" title="the post\'s not done! Here\'s the rest">Continued...</a></div>'.format(url)
     return snip
 
+def tumblify(path):
+    with open('templates/'+path, 'r') as f:
+        html = f.read()
+    context = {}
+    return html, context
 
 @app.route('/')
 def index ():
-    return flask.render_template('index.html')
+    html, context = tumblify('index.html')
+    return flask.render_template_string(html, **context)
 
 if __name__ == '__main__':
     app.run()
