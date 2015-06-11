@@ -1,5 +1,6 @@
 # builtin
 import re
+import json
 import string
 # ext
 import flask
@@ -31,6 +32,12 @@ def tumblify(path):
         'output': '\n\n'
     }
 
+    with open('response.txt', 'r') as f:
+        response = (json.load(f.read()))
+    context['posts'] = response['posts']
+    context.update(response['response']['blog'])
+
+    print(context)
 
     RE_VARIABLE = r'(?is)(?<!\{)\{[A-Z0-9 _-]*\}(?!\})'
     RE_BLOCK    = r'(?is)\{block\:[A-Z0-9 _-]*\}.*\{\/block\:[A-Z0-9 _-]*\}'
