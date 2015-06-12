@@ -6,9 +6,12 @@ import string
 import flask
 # local
 
+
 app = flask.Flask(__name__)
 DEBUG = True
 app.config.from_object(__name__)
+app.config['start'] = 0
+app.config['end'] = 0
 
 def sub_var_tumblr_to_jinja(match):
     match = match.group(0).lower()
@@ -20,7 +23,12 @@ def sub_block_start(match):
     match = match.group(0).lower()
     var = match[7:-1]
     match = '{% if '+var+' %}'
+    app.config['start'] += 1
     return match
+
+def sub_block_end(match):
+    app.config['end'] += 1
+    return '{% endif %}'
 
 def sub_post_variables_and_blocks(match):
     match = match.group(0).lower()
@@ -74,14 +82,17 @@ def tumblify(path):
     html = re.sub(RE_POSTS_START, '{% for post in posts %}', html)
     html = re.sub(RE_POSTS_END, '{% endfor %}', html)
     html = re.sub(RE_BLOCK_START, sub_block_start, html)
-    html = re.sub(RE_BLOCK_END, '{% endif %}', html)
+    html = re.sub(RE_BLOCK_END, sub_block_end, html)
 
 
     context['output'] += '\n\n'
     from bs4 import BeautifulSoup
     html = BeautifulSoup(html).prettify()
+    with open('test.html', 'w') as f:
+        f.write(html)
 
 
+    print(app.config['start'], app.config['end'])
     return html, context
 
 @app.route('/')
