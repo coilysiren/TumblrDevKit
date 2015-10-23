@@ -1,104 +1,58 @@
 # builtin
-import re
+import os
 import json
-import string
+
 # ext
 import flask
+
 # local
+import parser
+
+
+def parse_all_themes(*args, **kwargs):
+    from glob import glob
+    from bs4 import BeautifulSoup
+
+    for theme_path in glob('themes/*.*'):
+        with open(theme_path, 'r') as f:
+            html = f.read()
+        html = parser.parse_theme(html)
+        html = BeautifulSoup(html, 'html.parser').prettify()
+        template_path = 'templates/'+theme_path[7:]
+        with open(template_path, 'w') as f:
+            f.write(html)
+        print('wrote to {}'.format(template_path))
+
+def watcher(callback, path):
+    from watchdog.observers import Observer
+    from watchdog.events import FileSystemEventHandler
+    handler = FileSystemEventHandler()
+    handler.on_modified = callback
+    watch = Observer()
+    watch.schedule(handler, os.path.dirname(__file__)+path)
+    watch.start()
 
 
 app = flask.Flask(__name__)
-DEBUG = True
-app.config.from_object(__name__)
-app.config['start'] = 0
-app.config['end'] = 0
-
-def sub_var_tumblr_to_jinja(match):
-    match = match.group(0).lower()
-    match = re.sub(r'\-', '_', match)
-    match = '{'+match+'}'
-    return match
-
-def sub_block_start(match):
-    match = match.group(0).lower()
-    var = match[7:-1]
-    match = '{% if '+var+' %}'
-    app.config['start'] += 1
-    return match
-
-def sub_block_end(match):
-    app.config['end'] += 1
-    return '{% endif %}'
-
-def sub_post_variables_and_blocks(match):
-    match = match.group(0).lower()
-    match = 'post.'+match
-    return match
-
-def sub_post_types(match):
-    match = match.group(0).lower()
-    match = 'type==\"'+match+'\"'
-    return match
-
-def tumblify(path):
-    RE_VARIABLE      = r'(?is)\{[A-Z0-9 _\.\-="]*?\}'
-    RE_BLOCK_START   = r'(?is)\{block\:[A-Z0-9 _\.\-="]*?\}'
-    RE_BLOCK_END     = r'(?is)\{\/block\:[A-Z0-9 _\.\-="]*?\}'
-    RE_POSTS         = r'(?is)(?<=\{block\:posts\}).*(?=\{\/block\:posts\})'
-    RE_POSTS_START   = r'(?is)\{block\:posts\}'
-    RE_POSTS_END     = r'(?is)\{\/block\:posts\}'
-    RE_POST_VARIABLE = r'(?is)(?<=\{)[A-Z0-9 _\.\-="]*?(?=\})'
-    RE_POST_BLOCK    = r'(?is)(?<=\{block\:)[A-Z0-9 _\.\-="]*?(?=\})'
-    RE_POST_TYPES    = r'(?is)(?<=\{block\:post\.)(text|photo|panorama|photoset|quote|link|chat|audio|video|answer)(?=\})'
 
 
-    # format the html file
-    with open('templates/'+path, 'r') as f:
-        html = f.readlines()
-    _html = ''
-    for line in html:
-        _html += line.strip()
-    html = _html
+@app.context_processor
+def add_data_to_context():
+    with open('data.json', 'r') as f:
+        data = json.load(f)
 
+    data.update(response['response']['blog'])
+    data['posts'] = response['response']['posts']
+    data['metadescription'] = data['description']
 
-    # template variable context
-    context = {'output': '\n\n'}
-    # example context
-    with open('response.txt', 'r') as f:
-        response = json.load(f)
-    context.update(response['response']['blog'])
-    context['posts'] = response['response']['posts']
-    context['metadescription'] = context['description']
-
-    posts_index = re.search(RE_POSTS, html)
-    posts = html[posts_index.start():posts_index.end()]
-    posts = re.sub(RE_POST_VARIABLE, sub_post_variables_and_blocks, posts)
-    posts = re.sub(RE_POST_BLOCK, sub_post_variables_and_blocks, posts)
-    posts = re.sub(RE_POST_TYPES, sub_post_types, posts)
-    html = html[:posts_index.start()] + posts + html[posts_index.end():]
-
-
-    html = re.sub(RE_VARIABLE, sub_var_tumblr_to_jinja, html)
-    html = re.sub(RE_POSTS_START, '{% for post in posts %}', html)
-    html = re.sub(RE_POSTS_END, '{% endfor %}', html)
-    html = re.sub(RE_BLOCK_START, sub_block_start, html)
-    html = re.sub(RE_BLOCK_END, sub_block_end, html)
-
-
-    context['output'] += '\n\n'
-    from bs4 import BeautifulSoup
-    html = BeautifulSoup(html).prettify()
-    with open('test.html', 'w') as f:
-        f.write(html)
-
-
-    print(app.config['start'], app.config['end'])
-    return html, context
+    return data
 
 @app.route('/')
 def index ():
-    html, context = tumblify('index.html')
-    return flask.render_template_string(html, **context)
+    return flask.render_template('index.html')
+
 
 if __name__ == '__main__':
+    watcher(parse_themes, 'themes/')
+    parse_themes()
     app.run()

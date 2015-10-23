@@ -10,30 +10,27 @@
       "888"  `V88V"V8P' o888o o888o o888o  `Y8bod8P' o888o d888b    Y8P
 
 -->
-<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <!-- DEFAULT VARIABLES -->
-  <meta content="#3b627e" name="color:Background"/>
-  <meta content="Arial" name="font:Title"/>
-  <meta content="Arial" name="font:Body"/>
-  <meta content="Lucida Sans" name="font:Accent"/>
-  <meta content="1" name="if:Show People I Follow"/>
-  <meta content="1" name="if:Show Tags"/>
-  <meta content="1" name="if:Show Album Art on Audio Posts"/>
-  <meta content="" name="text:Disqus Shortname"/>
-  <meta content="" name="image:Header"/>
-  <meta content="" name="image:Background"/>
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <title>
-   {Title}{block:SearchPage}, Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary}, {PostSummary}{/block:PostSummary}
-  </title>
-  {block:Description}
-  <meta content="{MetaDescription}" name="description"/>
-  {/block:Description}
-  <link href="{Favicon}" rel="shortcut icon"/>
-  <link href="{RSS}" rel="alternate" type="application/rss+xml"/>
-  <style type="text/css">
-   body {
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!-- DEFAULT VARIABLES -->
+    <meta name="color:Background" content="#3b627e" />
+    <meta name="font:Title" content="Arial" />
+    <meta name="font:Body" content="Arial" />
+    <meta name="font:Accent" content="Lucida Sans" />
+    <meta name="if:Show People I Follow" content="1" />
+    <meta name="if:Show Tags" content="1" />
+    <meta name="if:Show Album Art on Audio Posts" content="1" />
+    <meta name="text:Disqus Shortname" content="" />
+    <meta name="image:Header" content="" />
+    <meta name="image:Background" content="" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{Title}{block:SearchPage}, Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+    <link rel="shortcut icon" href="{Favicon}" />
+    <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+    <style type="text/css">
+        body {
             background: {color:Background} url('{image:Background}') top left fixed repeat;
             margin: 0;
             padding: 0;
@@ -688,8 +685,9 @@
                             color: #fff;
                             margin-left: 15px;
                         }
-  </style>
-  <!--[if lt IE 7.]>
+
+    </style>
+    <!--[if lt IE 7.]>
         <style type="text/css">
             #wrapper #sidebar #bottom {
                 background: transparent;
@@ -726,7 +724,8 @@
             }
         </style>
     <![endif]-->
-  <!--[if lt IE 8.]>
+
+    <!--[if lt IE 8.]>
         <style type="text/css">
             #wrapper #content .bottom {
                 background: transparent;
@@ -748,194 +747,117 @@
             }
         </style>
     <![endif]-->
-  <style type="text/css">
-   {CustomCSS}
-  </style>
- </head>
- <body>
-  <div id="wrapper">
-   <div id="title">
-    <a href="/">
-     {block:IfHeaderImage}
-     <img src="{image:Header}"/>
-     {/block:IfHeaderImage}
+    <style type="text/css">{CustomCSS}</style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="title">
+            <a href="/">
+                {block:IfHeaderImage}<img src="{image:Header}" />{/block:IfHeaderImage}
                 {block:IfNotHeaderImage}{Title}{/block:IfNotHeaderImage}
-    </a>
-   </div>
-   <div id="content">
-    {block:SearchPage}
-    <div class="searchresultcount" id="searchresults">
-     {SearchResultCount} results for
-     <strong>
-      "{SearchQuery}"
-     </strong>
-    </div>
-    {/block:SearchPage}
+            </a>
+        </div>
+
+        <div id="content">
+
+            {block:SearchPage}
+                <div id="searchresults" class="searchresultcount">{SearchResultCount} results for <strong>"{SearchQuery}"</strong></div>
+            {/block:SearchPage}
 
             {block:NoSearchResults}
-    <style type="text/css">
-     .searchresultcount {
+                <style type="text/css">
+                    .searchresultcount {
                         display: none;
                     }
-    </style>
-    <div id="searchresults">
-     No results for
-     <strong>
-      "{SearchQuery}"
-     </strong>
-    </div>
-    {/block:NoSearchResults}
+                </style>
+                <div id="searchresults">No results for <strong>"{SearchQuery}"</strong></div>
+            {/block:NoSearchResults}
 
             {block:Posts}
-    <div class="post">
-     {block:Photo}
-     <div class="media">
-      {LinkOpenTag}
-      <img alt="{PhotoAlt}" src="{PhotoURL-500}"/>
-      {LinkCloseTag}
-     </div>
-     {block:Caption}
-     <div class="copy">
-      {Caption}
-     </div>
-     {/block:Caption}
+                <div class="post">
+
+                    {block:Photo}
+                        <div class="media">{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}</div>
+                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
                     {/block:Photo}
 
                     {block:Video}
-     <div class="media">
-      {Video-500}
-     </div>
-     {block:Caption}
-     <div class="copy">
-      {Caption}
-     </div>
-     {/block:Caption}
+                        <div class="media">{Video-500}</div>
+                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
                     {/block:Video}
 
                     {block:Audio}
                         {block:IfShowAlbumArtOnAudioPosts}
                             {block:AlbumArt}
-     <div class="album_art">
-      <img alt="{block:Artist}{Artist}{/block:Artist}{block:TrackName} - {TrackName}{/block:TrackName}" src="{AlbumArtURL}" style="margin-bottom: 10px"/>
-     </div>
-     {/block:AlbumArt}
+                                <div class="album_art">
+                                    <img src="{AlbumArtURL}" alt="{block:Artist}{Artist}{/block:Artist}{block:TrackName} - {TrackName}{/block:TrackName}" style="margin-bottom: 10px" />
+                                </div>
+                            {/block:AlbumArt}
                         {/block:IfShowAlbumArtOnAudioPosts}
-     <div class="audio">
-      <div class="player">
-       {AudioPlayerWhite}
-      </div>
-      <div class="meta">
-       {PlayCountWithLabel}{block:ExternalAudio} •
-       <a href="{ExternalAudioURL}">
-        download
-       </a>
-       {/block:ExternalAudio}
-      </div>
-      <div class="clear">
-      </div>
-     </div>
-     <div class="clear">
-     </div>
-     {block:Caption}
-     <div class="copy">
-      {Caption}
-     </div>
-     {/block:Caption}
+
+                        <div class="audio">
+                            <div class="player">{AudioPlayerWhite}</div>
+                            <div class="meta">{PlayCountWithLabel}{block:ExternalAudio} &bull; <a href="{ExternalAudioURL}">download</a>{/block:ExternalAudio}</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
                     {/block:Audio}
 
                     {block:Quote}
-     <div class="quote {Length}">
-      {Quote}
-     </div>
-     <div class="copy">
-      <div class="quotebg">
-       “
-      </div>
-      {block:Source}
-      <table border="0" cellpadding="0" cellspacing="0" width="100%">
-       <tr>
-        <td style="width: 20px" valign="top">
-         —
-        </td>
-        <td class="quote_source" valign="top">
-         {Source}
-        </td>
-       </tr>
-      </table>
-      {/block:Source}
-     </div>
-     {/block:Quote}
+                        <div class="quote {Length}">{Quote}</div>
+                        <div class="copy">
+                            <div class="quotebg">“</div>
+                            {block:Source}
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td valign="top" style="width: 20px">&mdash;</td>
+                                        <td valign="top" class="quote_source">
+                                            {Source}
+                                        </td>
+                                    </tr>
+                                </table>
+                            {/block:Source}
+                        </div>
+                    {/block:Quote}
 
                     {block:Text}
-                        {block:Title}
-     <div class="title">
-      {Title}
-     </div>
-     {/block:Title}
-     <div class="copy">
-      {Body}
-     </div>
-     {/block:Text}
+                        {block:Title}<div class="title">{Title}</div>{/block:Title}
+                        <div class="copy">{Body}</div>
+                    {/block:Text}
 
                     {block:Answer}
-     <div class="question">
-      <div class="nipple">
-      </div>
-      {Question}
-     </div>
-     <div class="asker_container">
-      <img src="{AskerPortraitURL-24}">
-       {Asker}
-      </img>
-     </div>
-     <div class="copy">
-      {Answer}
-     </div>
-     {/block:Answer}
+                        <div class="question">
+                            <div class="nipple"></div>
+                            {Question}
+                        </div>
+                        <div class="asker_container"><img src="{AskerPortraitURL-24}">{Asker}</div>
+                        <div class="copy">{Answer}</div>
+                    {/block:Answer}
 
                     {block:Chat}
-                        {block:Title}
-     <div class="title">
-      {Title}
-     </div>
-     {/block:Title}
-     <div class="chat">
-      <div class="lines">
-       {block:Lines}
-       <div class="line {Alt}">
-        {block:Label}
-        <strong>
-         {Label}
-        </strong>
-        {/block:Label} {Line}
-       </div>
-       {/block:Lines}
-      </div>
-     </div>
-     <div class="clear">
-     </div>
-     <div style="height: 10px">
-     </div>
-     {/block:Chat}
+                        {block:Title}<div class="title">{Title}</div>{/block:Title}
+                        <div class="chat">
+                            <div class="lines">
+                                {block:Lines}
+                                    <div class="line {Alt}">{block:Label}<strong>{Label}</strong>{/block:Label} {Line}</div>
+                                {/block:Lines}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="height: 10px"></div>
+                    {/block:Chat}
 
                     {block:Link}
-     <div class="link">
-      <a href="{URL}" {target}="">
-       {Name} »
-      </a>
-     </div>
-     {block:Description}
-     <div class="copy">
-      {Description}
-     </div>
-     {/block:Description}
+                        <div class="link"><a href="{URL}" {Target}>{Name} &raquo;</a></div>
+                        {block:Description}<div class="copy">{Description}</div>{/block:Description}
                     {/block:Link}
 
                     {block:Date}
-     <a href="{Permalink}">
-      <div class="footer">
-       <div class="date">
-        {block:Reblog}Reblogged{/block:Reblog}
+                        <a href="{Permalink}">
+                            <div class="footer">
+                                <div class="date">
+                                    {block:Reblog}Reblogged{/block:Reblog}
                                     {block:NotReblog}Posted{/block:NotReblog}
 
                                     {TimeAgo}
@@ -943,217 +865,126 @@
                                     {block:Reblog}from {ReblogParentName} {block:RebloggedFromReblog}(originally from {ReblogRootName}){/block:RebloggedFromReblog}{/block:Reblog}
                                     {block:FromBookmarklet}from bookmarklet{/block:FromBookmarklet}
                                     {block:FromMobile}from mobile{/block:FromMobile}
-       </div>
-       <div class="notes">
-        {block:NoteCount}{NoteCountWithLabel}{/block:NoteCount} {block:IfDisqusShortname}{block:NoteCount}•{/block:NoteCount}
-        <a href="{Permalink}#disqus_thread">
-         view comments
-        </a>
-        {/block:IfDisqusShortname}
-       </div>
-       <div class="clear">
-       </div>
-      </div>
-     </a>
-     {/block:Date}
+                                </div>
+                                <div class="notes">{block:NoteCount}{NoteCountWithLabel}{/block:NoteCount} {block:IfDisqusShortname}{block:NoteCount}&bull;{/block:NoteCount} <a href="{Permalink}#disqus_thread">view comments</a>{/block:IfDisqusShortname}</div>
+                                <div class="clear"></div>
+                            </div>
+                        </a>
+                    {/block:Date}
 
                     {block:IfShowTags}
-                        {block:HasTags}
-     <div class="footer">
-      <div class="tags">
-       Tagged: {block:Tags}
-       <a href="{TagURL}">
-        {Tag}
-       </a>
-       <span class="tag-commas">
-        ,
-       </span>
-       {/block:Tags}.
-      </div>
-     </div>
-     {/block:HasTags}
+                        {block:HasTags}<div class="footer"><div class="tags">Tagged: {block:Tags}<a href="{TagURL}">{Tag}</a><span class="tag-commas">, </span>{/block:Tags}.</div></div>{/block:HasTags}
                     {/block:IfShowTags}
 
-                    {block:PostNotes}
-     <div class="notecontainer">
-      {PostNotes}
-     </div>
-     {/block:PostNotes}
+                    {block:PostNotes}<div class="notecontainer">{PostNotes}</div>{/block:PostNotes}
 
                     {block:IfDisqusShortname}
                         {block:Permalink}
-     <div class="notecontainer" style="margin: 20px 0 1px 0; padding: 1px 10px 10px 10px;">
-      <div id="disqus_thread">
-      </div>
-      <script src="http://disqus.com/forums/{text:Disqus Shortname}/embed.js" type="text/javascript">
-      </script>
-      <noscript>
-       <a href="http://{text:Disqus Shortname}.disqus.com/?url=ref">
-        View the discussion thread.
-       </a>
-      </noscript>
-     </div>
-     <div style="text-align: right; margin-top: 5px">
-      <a class="dsq-brlink" href="http://disqus.com">
-       blog comments powered by
-       <span class="logo-disqus">
-        Disqus
-       </span>
-      </a>
-     </div>
-     {/block:Permalink}
+                            <div class="notecontainer" style="margin: 20px 0 1px 0; padding: 1px 10px 10px 10px;">
+                                <div id="disqus_thread"></div>
+                                <script type="text/javascript" src="http://disqus.com/forums/{text:Disqus Shortname}/embed.js"></script>
+                                <noscript><a href="http://{text:Disqus Shortname}.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+                            </div>
+                            <div style="text-align: right; margin-top: 5px">
+                                <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+                            </div>
+                        {/block:Permalink}
                     {/block:IfDisqusShortname}
-    </div>
-    <div class="bottom">
-    </div>
-    {/block:Posts}
+
+                </div>
+                <div class="bottom"></div>
+            {/block:Posts}
 
             {block:Pagination}
-    <div id="navigation">
-     {block:PreviousPage}
-     <a href="{PreviousPage}">
-      ← previous page
-     </a>
-     {/block:PreviousPage}
-                    {block:NextPage}
-     <a href="{NextPage}">
-      next page →
-     </a>
-     {/block:NextPage}
-    </div>
-    {/block:Pagination}
-   </div>
-   <div id="sidebar">
-    <div id="top">
-     <div id="avatar">
-      <a href="/">
-       <img src="{PortraitURL-128}"/>
-      </a>
-     </div>
-     <div id="description">
-      {Description}
-     </div>
-     {block:HasPages}
-     <div id="pages">
-      {block:Pages}
-      <a class="page" href="{URL}">
-       {Label}
-      </a>
-      {/block:Pages}
-      <div class="clear">
-      </div>
-     </div>
-     {/block:HasPages}
-     <div id="search">
-      <form action="/search" id="search-form" method="get">
-       <input name="t" type="hidden" value="{Name}"/>
-       <input name="scope" type="hidden" value="all_of_tumblr"/>
-       <input class="query" name="q" type="text" value="{SearchQuery}"/>
-       <input class="submit" type="submit" value="Search"/>
-       <div class="clear">
-       </div>
-      </form>
-     </div>
-     <div id="search-scope">
-      <input checked="" id="search-scope-me" name="scope" onclick="document.getElementById('search-form').action='/search'" type="radio"/>
-      <label for="search-scope-me" onclick="document.getElementById('search-form').action='/search'">
-       My Blog
-      </label>
-      <input id="search-scope-all" name="scope" onclick="document.getElementById('search-form').action='http://tumblr.com/search'" type="radio"/>
-      <label for="search-scope-all" onclick="document.getElementById('search-form').action='http://tumblr.com/search'">
-       All of Tumblr
-      </label>
-     </div>
-     <a href="http://www.tumblr.com/follow/{Name}">
-      <div class="heading" id="followontumblr">
-       Follow on Tumblr
-      </div>
-     </a>
-     {block:Twitter}
-     <div id="twitterwrapper" style="display: none">
-      <a href="http://twitter.com/{TwitterUsername}" style="text-decoration: none">
-       <div class="heading" id="twitter">
-        Latest Tweets
-       </div>
-      </a>
-      <div id="tweetcontainer">
-      </div>
-      <script type="text/javascript">
-       function recent_tweets(data) {
+                <div id="navigation">
+                    {block:PreviousPage}<a href="{PreviousPage}">&larr; previous page</a>{/block:PreviousPage}
+                    {block:NextPage}<a href="{NextPage}">next page &rarr;</a>{/block:NextPage}
+                </div>
+            {/block:Pagination}
+
+        </div>
+
+        <div id="sidebar">
+            <div id="top">
+                <div id="avatar"><a href="/"><img src="{PortraitURL-128}" /></a></div>
+                <div id="description">{Description}</div>
+
+                {block:HasPages}
+                    <div id="pages">
+                        {block:Pages}<a href="{URL}" class="page">{Label}</a>{/block:Pages}
+                        <div class="clear"></div>
+                    </div>
+                {/block:HasPages}
+
+                <div id="search">
+                    <form action="/search" method="get" id="search-form">
+                        <input type="hidden" name="t" value="{Name}" />
+                        <input type="hidden" name="scope" value="all_of_tumblr" />
+                        <input type="text" name="q" class="query" value="{SearchQuery}" />
+                        <input type="submit" value="Search" class="submit" />
+                        <div class="clear"></div>
+                    </form>
+                </div>
+                <div id="search-scope">
+                    <input type="radio" id="search-scope-me" name="scope" checked onclick="document.getElementById('search-form').action='/search'" /> <label for="search-scope-me" onclick="document.getElementById('search-form').action='/search'">My Blog</label>
+                    <input type="radio" id="search-scope-all" name="scope" onclick="document.getElementById('search-form').action='http://tumblr.com/search'" /> <label for="search-scope-all" onclick="document.getElementById('search-form').action='http://tumblr.com/search'">All of Tumblr</label>
+                </div>
+
+                <a href="http://www.tumblr.com/follow/{Name}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
+
+                {block:Twitter}
+                <div id="twitterwrapper" style="display: none">
+                    <a href="http://twitter.com/{TwitterUsername}" style="text-decoration: none"><div class="heading" id="twitter">Latest Tweets</div></a>
+                    <div id="tweetcontainer"></div>
+                    <script type="text/javascript">
+                        function recent_tweets(data) {
                             document.getElementById("twitterwrapper").style.display = "block";
                             for(i = 0; i < data.length; i++) {
                                 document.getElementById("tweetcontainer").innerHTML = document.getElementById("tweetcontainer").innerHTML + '<a href="http://twitter.com/{TwitterUsername}/status/' + data[i].id + '"><div class="content">' + data[i].text + '</div></a>';
                             }
                         }
-      </script>
-     </div>
-     {/block:Twitter}
+                    </script>
+                </div>
+                {/block:Twitter}
 
                 {block:IfShowPeopleIFollow}
                     {block:Following}
-     <div class="heading" id="following">
-      Following
-     </div>
-     <div class="content" id="following-avatars">
-      {block:Followed}
-      <a href="{FollowedURL}">
-       <img src="{FollowedPortraitURL-40}"/>
-      </a>
-      {/block:Followed}
-     </div>
-     {/block:Following}
+                        <div class="heading" id="following">Following</div>
+                        <div class="content" id="following-avatars">
+                            {block:Followed}<a href="{FollowedURL}"><img src="{FollowedPortraitURL-40}" /></a>{/block:Followed}
+                        </div>
+                    {/block:Following}
                 {/block:IfShowPeopleIFollow}
-     <div id="buttons">
-      <div class="row">
-       <div class="button" id="button-rss">
-        <a href="{RSS}">
-         RSS Feed
-        </a>
-       </div>
-       <div class="button" id="button-random">
-        <a href="/random">
-         Random
-        </a>
-       </div>
-      </div>
-      <div class="clear">
-      </div>
-      <div class="row">
-       <div class="button" id="button-archive">
-        <a href="/archive">
-         Archive
-        </a>
-       </div>
-       <div class="button" id="button-mobile">
-        <a href="/mobile">
-         Mobile
-        </a>
-       </div>
-      </div>
-      <div class="clear">
-      </div>
-     </div>
+
+                <div id="buttons">
+                    <div class="row">
+                        <div class="button" id="button-rss"><a href="{RSS}">RSS Feed</a></div>
+                        <div class="button" id="button-random"><a href="/random">Random</a></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="button" id="button-archive"><a href="/archive">Archive</a></div>
+                        <div class="button" id="button-mobile"><a href="/mobile">Mobile</a></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div id="bottom"></div>
+            <div id="copyright">&copy; {CopyrightYears} <a href="http://www.tumblr.com">Powered by Tumblr</a></div>
+        </div>
+
+        <div class="clear"></div>
     </div>
-    <div id="bottom">
-    </div>
-    <div id="copyright">
-     © {CopyrightYears}
-     <a href="http://www.tumblr.com">
-      Powered by Tumblr
-     </a>
-    </div>
-   </div>
-   <div class="clear">
-   </div>
-  </div>
-  {block:Twitter}
-  <script src="/tweets.js" type="text/javascript">
-  </script>
-  {/block:Twitter}
+
+    {block:Twitter}
+        <script type="text/javascript" src="/tweets.js"></script>
+    {/block:Twitter}
 
     {block:IfDisqusShortname}
-  <script type="text/javascript">
-   //<![CDATA[
+        <script type="text/javascript">
+            //<![CDATA[
             (function() {
                 var links = document.getElementsByTagName('a');
                 var query = '?';
@@ -1165,7 +996,7 @@
                 document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/{text:Disqus Shortname}/get_num_replies.js' + query + '"></' + 'script>');
             })();
             //]]>
-  </script>
-  {/block:IfDisqusShortname}
- </body>
+        </script>
+    {/block:IfDisqusShortname}
+</body>
 </html>
