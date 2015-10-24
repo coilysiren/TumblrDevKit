@@ -26,15 +26,11 @@ def _sub_post_types(match):
     return match
 
 def parse_theme(path):
-    RE_VARIABLE      = r'(?is)\{[A-Z0-9 _\.\-="]*?\}'
-    RE_BLOCK_START   = r'(?is)\{block\:[A-Z0-9 _\.\-="]*?\}'
-    RE_BLOCK_END     = r'(?is)\{\/block\:[A-Z0-9 _\.\-="]*?\}'
-    RE_POSTS         = r'(?is)(?<=\{block\:posts\}).*(?=\{\/block\:posts\})'
-    RE_POSTS_START   = r'(?is)\{block\:posts\}'
-    RE_POSTS_END     = r'(?is)\{\/block\:posts\}'
-    RE_POST_VARIABLE = r'(?is)(?<=\{)[A-Z0-9 _\.\-="]*?(?=\})'
-    RE_POST_BLOCK    = r'(?is)(?<=\{block\:)[A-Z0-9 _\.\-="]*?(?=\})'
-    RE_POST_TYPES    = r'(?is)(?<=\{block\:post\.)(text|photo|panorama|photoset|quote|link|chat|audio|video|answer)(?=\})'
+    POST_TYPES       = ['text','photopanorama','photoset','quote','link','chat','audio','video','answer']
+    RE_POSTS         = r'(?ism)((\{block:(posts)\}).*?(\{\/block:\3\}))
+    RE_POST_TYPES    = r'(?ism)\{block:('+'|'.join(POST_TYPES)+r')\}.*?\{\/block:(\1)\}
+    RE_VARIABLEs     = r'(?ism)\{\w+\}'
+    RE_BLOCKS        = r'(?ism)\{block:(\w+)\}.*?\{\/block:(/1)\}'
 
     
     # pull out posts block
