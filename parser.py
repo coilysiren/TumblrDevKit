@@ -27,8 +27,8 @@ def _sub_post_types(match):
 
 def parse_theme(path):
     POST_TYPES       = ['text','photopanorama','photoset','quote','link','chat','audio','video','answer']
-    RE_POSTS         = r'(?ism)((\{block:(posts)\}).*?(\{\/block:\3\}))
-    RE_POST_TYPES    = r'(?ism)\{block:('+'|'.join(POST_TYPES)+r')\}.*?\{\/block:(\1)\}
+    RE_POSTS         = r'(?ism)((\{block:(posts)\}).*?(\{\/block:\3\}))'
+    RE_POST_TYPES    = r'(?ism)\{block:('+'|'.join(POST_TYPES)+r')\}.*?\{\/block:(\1)\}'
     RE_VARIABLEs     = r'(?ism)\{\w+\}'
     RE_BLOCKS        = r'(?ism)\{block:(\w+)\}.*?\{\/block:(/1)\}'
 
