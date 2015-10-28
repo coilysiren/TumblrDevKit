@@ -13,77 +13,77 @@
     <meta name="image:Background" content="" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{title}}{block:SearchPage}, Search results for: {{searchquery}}{/block:SearchPage}{block:PostSummary}, {{postsummary}}{/block:PostSummary}</title>
-    {block:Description}<meta name="description" content="{{metadescription}}" />{/block:Description}
-    <link rel="shortcut icon" href="{{favicon}}" />
-    <link rel="alternate" type="application/rss+xml" href="{{rss}}" />
+    <title>{{ title }}{% if searchpage %}, search results for: {{ searchquery }}{% endif %}{block:PostSummary}, {{ postsummary }}{/block:PostSummary}</title>
+    {% if description %}<meta name="description" content="{{ metadescription }}" />{% endif %}
+    <link rel="shortcut icon" href="{{ favicon }}" />
+    <link rel="alternate" type="application/rss+xml" href="{{ rss }}" />
 </head>
 <body>
     <div id="wrapper">
         <div id="title">
             <a href="/">
-                {block:IfHeaderImage}<img src="{image:Header}" />{/block:IfHeaderImage}
-                {block:IfNotHeaderImage}{{title}}{/block:IfNotHeaderImage}
+                {% if ifheaderimage %}<img src="{image:header}" />{% endif %}
+                {% if ifnotheaderimage %}{{ title }}{% endif %}
             </a>
         </div>
 
         <div id="content">
 
-            {block:SearchPage}
-                <div id="searchresults" class="searchresultcount">{{searchresultcount}} results for <strong>"{{searchquery}}"</strong></div>
-            {/block:SearchPage}
+            {% if searchpage %}
+                <div id="searchresults" class="searchresultcount">{{ searchresultcount }} results for <strong>"{{ searchquery }}"</strong></div>
+            {% endif %}
 
-            {block:NoSearchResults}
+            {% if nosearchresults %}
                 <style type="text/css">
                     .searchresultcount {
                         display: none;
                     }
                 </style>
-                <div id="searchresults">No results for <strong>"{{searchquery}}"</strong></div>
-            {/block:NoSearchResults}
+                <div id="searchresults">no results for <strong>"{{ searchquery }}"</strong></div>
+            {% endif %}
 
             {block:Posts}
                 <div class="post">
 
-                    {block:Photo}
-                        <div class="media">{{linkopentag}}<img src="{PhotoURL-500}" alt="{{photoalt}}" />{{linkclosetag}}</div>
-                        {block:Caption}<div class="copy">{{caption}}</div>{/block:Caption}
+                    {block:post.photo}
+                        <div class="media">{{ post.linkopentag }}<img src="{{ post.photourl_500 }}" alt="{{ post.photoalt }}" />{{ post.linkclosetag }}</div>
+                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
                     {/block:Photo}
 
 
-                    {block:Video}
-                        <div class="media">{Video-500}</div>
-                        {block:Caption}<div class="copy">{{caption}}</div>{/block:Caption}
+                    {block:post.video}
+                        <div class="media">{{ post.video_500 }}</div>
+                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
                     {/block:Video}
 
-                    {block:Audio}
-                        {block:IfShowAlbumArtOnAudioPosts}
-                            {block:AlbumArt}
+                    {block:post.audio}
+                        {block:post.ifshowalbumartonaudioposts}
+                            {block:post.albumart}
                                 <div class="album_art">
-                                    <img src="{{albumarturl}}" alt="{block:Artist}{{artist}}{/block:Artist}{block:TrackName} - {{trackname}}{/block:TrackName}" style="margin-bottom: 10px" />
+                                    <img src="{{ post.albumarturl }}" alt="{block:post.artist}{{ post.artist }}{/block:Artist}{block:post.trackname} - {{ post.trackname }}{/block:TrackName}" style="margin-bottom: 10px" />
                                 </div>
                             {/block:AlbumArt}
                         {/block:IfShowAlbumArtOnAudioPosts}
 
                         <div class="audio">
-                            <div class="player">{{audioplayerwhite}}</div>
-                            <div class="meta">{{playcountwithlabel}}{block:ExternalAudio} &bull; <a href="{{externalaudiourl}}">download</a>{/block:ExternalAudio}</div>
+                            <div class="player">{{ post.audioplayerwhite }}</div>
+                            <div class="meta">{{ post.playcountwithlabel }}{block:post.externalaudio} &bull; <a href="{{ post.externalaudiourl }}">download</a>{/block:ExternalAudio}</div>
                             <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
-                        {block:Caption}<div class="copy">{{caption}}</div>{/block:Caption}
+                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
                     {/block:Audio}
 
-                    {block:Quote}
-                        <div class="quote {{length}}">{{quote}}</div>
+                    {block:post.quote}
+                        <div class="quote {{ post.length }}">{{ post.quote }}</div>
                         <div class="copy">
                             <div class="quotebg">“</div>
-                            {block:Source}
+                            {block:post.source}
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td valign="top" style="width: 20px">&mdash;</td>
                                         <td valign="top" class="quote_source">
-                                            {{source}}
+                                            {{ post.source }}
                                         </td>
                                     </tr>
                                 </table>
@@ -91,26 +91,26 @@
                         </div>
                     {/block:Quote}
 
-                    {block:Text}
-                        {block:Title}<div class="title">{{title}}</div>{/block:Title}
-                        <div class="copy">{{body}}</div>
+                    {block:post.text}
+                        {block:post.title}<div class="title">{{ post.title }}</div>{/block:Title}
+                        <div class="copy">{{ post.body }}</div>
                     {/block:Text}
 
-                    {block:Answer}
+                    {block:post.answer}
                         <div class="question">
                             <div class="nipple"></div>
-                            {{question}}
+                            {{ post.question }}
                         </div>
-                        <div class="asker_container"><img src="{AskerPortraitURL-24}">{{asker}}</div>
-                        <div class="copy">{{answer}}</div>
+                        <div class="asker_container"><img src="{{ post.askerportraiturl_24 }}">{{ post.asker }}</div>
+                        <div class="copy">{{ post.answer }}</div>
                     {/block:Answer}
 
-                    {block:Chat}
-                        {block:Title}<div class="title">{{title}}</div>{/block:Title}
+                    {block:post.chat}
+                        {block:post.title}<div class="title">{{ post.title }}</div>{/block:Title}
                         <div class="chat">
                             <div class="lines">
-                                {block:Lines}
-                                    <div class="line {{alt}}">{block:Label}<strong>{{label}}</strong>{/block:Label} {{line}}</div>
+                                {block:post.lines}
+                                    <div class="line {{ post.alt }}">{block:post.label}<strong>{{ post.label }}</strong>{/block:Label} {{ post.line }}</div>
                                 {/block:Lines}
                             </div>
                         </div>
@@ -118,66 +118,66 @@
                         <div style="height: 10px"></div>
                     {/block:Chat}
 
-                    {block:Link}
-                        <div class="link"><a href="{{url}}" {{target}}>{{name}} &raquo;</a></div>
-                        {block:Description}<div class="copy">{{description}}</div>{/block:Description}
+                    {block:post.link}
+                        <div class="link"><a href="{{ post.url }}" {{ post.target }}>{{ post.name }} &raquo;</a></div>
+                        {block:post.description}<div class="copy">{{ post.description }}</div>{/block:Description}
                     {/block:Link}
 
-                    {block:Date}
-                        <a href="{{permalink}}">
+                    {block:post.date}
+                        <a href="{{ post.permalink }}">
                             <div class="footer">
                                 <div class="date">
-                                    {block:Reblog}Reblogged{/block:Reblog}
-                                    {block:NotReblog}Posted{/block:NotReblog}
+                                    {block:post.reblog}Reblogged{/block:Reblog}
+                                    {block:post.notreblog}Posted{/block:NotReblog}
 
-                                    {{timeago}}
+                                    {{ post.timeago }}
 
-                                    {block:Reblog}from {{reblogparentname}} {block:RebloggedFromReblog}(originally from {{reblogrootname}}){/block:RebloggedFromReblog}{/block:Reblog}
-                                    {block:FromBookmarklet}from bookmarklet{/block:FromBookmarklet}
-                                    {block:FromMobile}from mobile{/block:FromMobile}
+                                    {block:post.reblog}from {{ post.reblogparentname }} {block:post.rebloggedfromreblog}(originally from {{ post.reblogrootname }}){/block:RebloggedFromReblog}{/block:Reblog}
+                                    {block:post.frombookmarklet}from bookmarklet{/block:FromBookmarklet}
+                                    {block:post.frommobile}from mobile{/block:FromMobile}
                                 </div>
-                                <div class="notes">{block:NoteCount}{{notecountwithlabel}}{/block:NoteCount} {block:IfDisqusShortname}{block:NoteCount}&bull;{/block:NoteCount} <a href="{{permalink}}#disqus_thread">view comments</a>{/block:IfDisqusShortname}</div>
+                                <div class="notes">{block:post.notecount}{{ post.notecountwithlabel }}{/block:NoteCount} {block:post.ifdisqusshortname}{block:post.notecount}&bull;{/block:NoteCount} <a href="{{ post.permalink }}#disqus_thread">view comments</a>{/block:IfDisqusShortname}</div>
                                 <div class="clear"></div>
                             </div>
                         </a>
                     {/block:Date}
 
-                    {block:IfShowTags}
-                        {block:HasTags}<div class="footer"><div class="tags">Tagged: {block:Tags}<a href="{{tagurl}}">{{tag}}</a><span class="tag-commas">, </span>{/block:Tags}.</div></div>{/block:HasTags}
+                    {block:post.ifshowtags}
+                        {block:post.hastags}<div class="footer"><div class="tags">Tagged: {block:post.tags}<a href="{{ post.tagurl }}">{{ post.tag }}</a><span class="tag-commas">, </span>{/block:Tags}.</div></div>{/block:HasTags}
                     {/block:IfShowTags}
 
-                    {block:PostNotes}<div class="notecontainer">{{postnotes}}</div>{/block:PostNotes}
+                    {block:post.postnotes}<div class="notecontainer">{{ post.postnotes }}</div>{/block:PostNotes}
 
                 </div>
                 <div class="bottom"></div>
             {/block:Posts}
 
-            {block:Pagination}
+            {% if pagination %}
                 <div id="navigation">
-                    {block:PreviousPage}<a href="{{previouspage}}">&larr; previous page</a>{/block:PreviousPage}
-                    {block:NextPage}<a href="{{nextpage}}">next page &rarr;</a>{/block:NextPage}
+                    {block:previouspage}<a href="{{ previouspage }}">&larr; previous page</a>{/block:previouspage}
+                    {block:nextpage}<a href="{{ nextpage }}">next page &rarr;</a>{/block:nextpage}
                 </div>
-            {/block:Pagination}
+            {% endif %}
 
         </div>
 
         <div id="sidebar">
             <div id="top">
-                <div id="avatar"><a href="/"><img src="{PortraitURL-128}" /></a></div>
-                <div id="description">{{description}}</div>
+                <div id="avatar"><a href="/"><img src="{{ portraiturl_128 }}" /></a></div>
+                <div id="description">{{ description }}</div>
 
-                {block:HasPages}
+                {% if haspages %}
                     <div id="pages">
-                        {block:Pages}<a href="{{url}}" class="page">{{label}}</a>{/block:Pages}
+                        {block:pages}<a href="{{ url }}" class="page">{{ label }}</a>{/block:pages}
                         <div class="clear"></div>
                     </div>
-                {/block:HasPages}
+                {% endif %}
 
                 <div id="search">
                     <form action="/search" method="get" id="search-form">
-                        <input type="hidden" name="t" value="{{name}}" />
+                        <input type="hidden" name="t" value="{{ name }}" />
                         <input type="hidden" name="scope" value="all_of_tumblr" />
-                        <input type="text" name="q" class="query" value="{{searchquery}}" />
+                        <input type="text" name="q" class="query" value="{{ searchquery }}" />
                         <input type="submit" value="Search" class="submit" />
                         <div class="clear"></div>
                     </form>
@@ -187,20 +187,20 @@
                     <input type="radio" id="search-scope-all" name="scope" onclick="document.getElementById('search-form').action='http://tumblr.com/search'" /> <label for="search-scope-all" onclick="document.getElementById('search-form').action='http://tumblr.com/search'">All of Tumblr</label>
                 </div>
 
-                <a href="http://www.tumblr.com/follow/{{name}}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
+                <a href="http://www.tumblr.com/follow/{{ name }}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
 
-                {block:IfShowPeopleIFollow}
-                    {block:Following}
-                        <div class="heading" id="following">Following</div>
+                {% if ifshowpeopleifollow %}
+                    {block:following}
+                        <div class="heading" id="following">following</div>
                         <div class="content" id="following-avatars">
-                            {block:Followed}<a href="{{followedurl}}"><img src="{FollowedPortraitURL-40}" /></a>{/block:Followed}
+                            {block:followed}<a href="{{ followedurl }}"><img src="{{ followedportraiturl_40 }}" /></a>{/block:followed}
                         </div>
-                    {/block:Following}
-                {/block:IfShowPeopleIFollow}
+                    {/block:following}
+                {% endif %}
 
                 <div id="buttons">
                     <div class="row">
-                        <div class="button" id="button-rss"><a href="{{rss}}">RSS Feed</a></div>
+                        <div class="button" id="button-rss"><a href="{{ rss }}">RSS Feed</a></div>
                         <div class="button" id="button-random"><a href="/random">Random</a></div>
                     </div>
                     <div class="clear"></div>
@@ -214,7 +214,7 @@
             </div>
 
             <div id="bottom"></div>
-            <div id="copyright">&copy; {{copyrightyears}} <a href="http://www.tumblr.com">Powered by Tumblr</a></div>
+            <div id="copyright">&copy; {{ copyrightyears }} <a href="http://www.tumblr.com">Powered by Tumblr</a></div>
         </div>
 
         <div class="clear"></div>
