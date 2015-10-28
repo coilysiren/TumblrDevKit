@@ -29,7 +29,7 @@ def _sub_for_loop_posts(match):
 
 def parse_theme(html):
     POST_TYPES        = ['text','photo','panorama','photoset','quote','link','chat','audio','video','answer']
-    RE_POSTS          = r'(?ism)((\{block:(posts)\})(.*?)(\{\/block:\3\}))'
+    RE_POSTS          = r'(?ism)(\{block:posts\})(.*?)(\{\/block:posts\})'
     RE_FOR_POSTS      = r'(?ism)(?<=\{\% for posts in posts \%\}).*?(?=\{\% endfor \%\})'
     RE_POST_TYPES     = r'(?ism)(?<=\{block:)('+'|'.join(POST_TYPES)+r')(?=\}.*?\{\/block:(\1)\})'
     RE_VARIABLES      = r'(?ism)(?<=\{)[\w\.\-]+(?=\})'
