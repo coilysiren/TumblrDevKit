@@ -13,7 +13,7 @@
     <meta name="image:Background" content="" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ title }}{% if searchpage %}, search results for: {{ searchquery }}{% endif %}{block:PostSummary}, {{ postsummary }}{/block:PostSummary}</title>
+    <title>{{ title }}{% if searchpage %}, search results for: {{ searchquery }}{% endif %}{% if postsummary %}, {{ postsummary }}{% endif %}</title>
     {% if description %}<meta name="description" content="{{ metadescription }}" />{% endif %}
     <link rel="shortcut icon" href="{{ favicon }}" />
     <link rel="alternate" type="application/rss+xml" href="{{ rss }}" />
@@ -42,7 +42,7 @@
                 <div id="searchresults">no results for <strong>"{{ searchquery }}"</strong></div>
             {% endif %}
 
-            {block:Posts}
+            {% for post in posts %}
                 <div class="post">
 
                     {block:post.photo}
@@ -150,7 +150,7 @@
 
                 </div>
                 <div class="bottom"></div>
-            {/block:Posts}
+            {% endfor %}
 
             {% if pagination %}
                 <div id="navigation">

@@ -23,25 +23,24 @@ def _sub_blocks(match):
     return match
 
 def _sub_for_loop_posts(match):
-    content = match.group(4)
+    content = match.group(2)
     match = '{% for post in posts %}'+content+'{% endfor %}'
     return match
 
 def parse_theme(html):
     POST_TYPES        = ['text','photo','panorama','photoset','quote','link','chat','audio','video','answer']
     RE_POSTS          = r'(?ism)(\{block:posts\})(.*?)(\{\/block:posts\})'
-    RE_FOR_POSTS      = r'(?ism)(?<=\{\% for posts in posts \%\}).*?(?=\{\% endfor \%\})'
     RE_POST_TYPES     = r'(?ism)(?<=\{block:)('+'|'.join(POST_TYPES)+r')(?=\}.*?\{\/block:(\1)\})'
     RE_VARIABLES      = r'(?ism)(?<=\{)[\w\.\-]+(?=\})'
     RE_BLOCKS         = r'(?ism)\{block:([\w\.\-]+)\}(.*?)\{\/block:(\1)\}'
     RE_BLOCKS_CONTENT = r'(?ism)(?<=\{block:)([\w\.\-]+)(?=\}.*?\{\/block:(\1)\})'
 
-    # swap the posts block to a for block
-    html = re.sub(RE_POSTS, _sub_for_loop_posts, html)
 
     # pull out posts block
-    posts_search = re.search(RE_FOR_POSTS, html)
+    posts_search = re.search(RE_POSTS, html)
     posts = html[posts_search.start():posts_search.end()]
+    # swap the posts block to a for block
+    posts = re.sub(RE_POSTS, _sub_for_loop_posts, posts)
     # reformat (VAR) to (posts.VAR)
     posts = re.sub(RE_VARIABLES, _sub_post_variables_and_blocks, posts)
     # reformat (block:VAR) to (block:post.VAR)
@@ -53,7 +52,7 @@ def parse_theme(html):
     html = html[:posts_search.start()] + posts + html[posts_search.end():]
     # change tumblr variables to jinja variables
     html = re.sub(RE_VARIABLES, _sub_var_tumblr_to_jinja, html)
-    # swap every block except posts to an if block
+    # swap every block to an if block
     html = re.sub(RE_BLOCKS, _sub_blocks, html)
 
 
