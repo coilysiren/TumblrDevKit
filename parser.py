@@ -18,7 +18,7 @@ def _sub_var_tumblr_to_jinja(match):
 
 def _sub_blocks(match):
     block = match.group(1).lower()
-    content = match.group(2).lower()
+    content = match.group(3).lower()
     match = '{% if '+block+' %}'+content+'{% endif %}'
     return match
 
@@ -32,8 +32,9 @@ def parse_theme(html):
     RE_POSTS          = r'(?ism)(\{block:posts\})(.*?)(\{\/block:posts\})'
     RE_POST_TYPES     = r'(?ism)(?<=\{block:)('+'|'.join(POST_TYPES)+r')(?=\}.*?\{\/block:(\1)\})'
     RE_VARIABLES      = r'(?ism)(?<=\{)[\w\.\-]+(?=\})'
-    RE_BLOCKS         = r'(?ism)\{block:([\w\.\-]+)\}(.*?)\{\/block:(\1)\}'
-    RE_BLOCKS_CONTENT = r'(?ism)(?<=\{block:)([\w\.\-]+)(?=\}.*?\{\/block:(\1)\})'
+    RE_BLOCKS         = r'(?ism)\{block:((post.)[\w\.\-]+)\}(.*?)\{\/block:\1\}'
+    RE_BLOCKS_START   = r'(?ism)(?<=\{block:)([\w\.\-]+)(?=\}.*?\{\/block:(\1)\})'
+    RE_BLOCKS_END     = r'(?ism)(?<=\{block:post\.([\w\.\-]+)\}.*?\{\/block:)(\1)(?=\})'
 
 
     # pull out posts block
@@ -44,7 +45,8 @@ def parse_theme(html):
     # reformat (VAR) to (posts.VAR)
     posts = re.sub(RE_VARIABLES, _sub_post_variables_and_blocks, posts)
     # reformat (block:VAR) to (block:post.VAR)
-    posts = re.sub(RE_BLOCKS_CONTENT, _sub_post_variables_and_blocks, posts)
+    posts = re.sub(RE_BLOCKS_START, _sub_post_variables_and_blocks, posts)
+    posts = re.sub(RE_BLOCKS_END, _sub_post_variables_and_blocks, posts)
     # reformat (block:post.TYPE) to (block:posts.type == TYPE)
     posts = re.sub(RE_POST_TYPES, _sub_post_types, posts)
 

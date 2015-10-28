@@ -13,8 +13,8 @@
     <meta name="image:Background" content="" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ title }}{% if searchpage %}, search results for: {{ searchquery }}{% endif %}{% if postsummary %}, {{ postsummary }}{% endif %}</title>
-    {% if description %}<meta name="description" content="{{ metadescription }}" />{% endif %}
+    <title>{{ title }}{block:SearchPage}, Search results for: {{ searchquery }}{/block:SearchPage}{% if postsummary %}, {{ postsummary }}{% endif %}</title>
+    {block:Description}<meta name="description" content="{{ metadescription }}" />{/block:Description}
     <link rel="shortcut icon" href="{{ favicon }}" />
     <link rel="alternate" type="application/rss+xml" href="{{ rss }}" />
 </head>
@@ -22,25 +22,25 @@
     <div id="wrapper">
         <div id="title">
             <a href="/">
-                {% if ifheaderimage %}<img src="{image:header}" />{% endif %}
-                {% if ifnotheaderimage %}{{ title }}{% endif %}
+                {block:IfHeaderImage}<img src="{image:Header}" />{/block:IfHeaderImage}
+                {block:IfNotHeaderImage}{{ title }}{/block:IfNotHeaderImage}
             </a>
         </div>
 
         <div id="content">
 
-            {% if searchpage %}
+            {block:SearchPage}
                 <div id="searchresults" class="searchresultcount">{{ searchresultcount }} results for <strong>"{{ searchquery }}"</strong></div>
-            {% endif %}
+            {/block:SearchPage}
 
-            {% if nosearchresults %}
+            {block:NoSearchResults}
                 <style type="text/css">
                     .searchresultcount {
                         display: none;
                     }
                 </style>
-                <div id="searchresults">no results for <strong>"{{ searchquery }}"</strong></div>
-            {% endif %}
+                <div id="searchresults">No results for <strong>"{{ searchquery }}"</strong></div>
+            {/block:NoSearchResults}
 
             {% for post in posts %}
                 <div class="post">
@@ -152,12 +152,12 @@
                 <div class="bottom"></div>
             {% endfor %}
 
-            {% if pagination %}
+            {block:Pagination}
                 <div id="navigation">
-                    {block:previouspage}<a href="{{ previouspage }}">&larr; previous page</a>{/block:previouspage}
-                    {block:nextpage}<a href="{{ nextpage }}">next page &rarr;</a>{/block:nextpage}
+                    {block:PreviousPage}<a href="{{ previouspage }}">&larr; previous page</a>{/block:PreviousPage}
+                    {block:NextPage}<a href="{{ nextpage }}">next page &rarr;</a>{/block:NextPage}
                 </div>
-            {% endif %}
+            {/block:Pagination}
 
         </div>
 
@@ -166,12 +166,12 @@
                 <div id="avatar"><a href="/"><img src="{{ portraiturl_128 }}" /></a></div>
                 <div id="description">{{ description }}</div>
 
-                {% if haspages %}
+                {block:HasPages}
                     <div id="pages">
-                        {block:pages}<a href="{{ url }}" class="page">{{ label }}</a>{/block:pages}
+                        {block:Pages}<a href="{{ url }}" class="page">{{ label }}</a>{/block:Pages}
                         <div class="clear"></div>
                     </div>
-                {% endif %}
+                {/block:HasPages}
 
                 <div id="search">
                     <form action="/search" method="get" id="search-form">
@@ -189,14 +189,14 @@
 
                 <a href="http://www.tumblr.com/follow/{{ name }}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
 
-                {% if ifshowpeopleifollow %}
-                    {block:following}
-                        <div class="heading" id="following">following</div>
+                {block:IfShowPeopleIFollow}
+                    {block:Following}
+                        <div class="heading" id="following">Following</div>
                         <div class="content" id="following-avatars">
-                            {block:followed}<a href="{{ followedurl }}"><img src="{{ followedportraiturl_40 }}" /></a>{/block:followed}
+                            {block:Followed}<a href="{{ followedurl }}"><img src="{{ followedportraiturl_40 }}" /></a>{/block:Followed}
                         </div>
-                    {/block:following}
-                {% endif %}
+                    {/block:Following}
+                {/block:IfShowPeopleIFollow}
 
                 <div id="buttons">
                     <div class="row">
