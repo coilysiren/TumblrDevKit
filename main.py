@@ -18,7 +18,11 @@ def parse_all_themes(*args, **kwargs):
     for theme_path in glob('themes/*.*'):
         with open(theme_path, 'r') as f:
             html = f.read()
-        html = parser.parse_theme(html)
+
+        # we want to watcher not to crash in case of parse errors
+        try: html = parser.parse_theme(html)
+        except: print('PARSE ERROR!!!')
+
         template_path = 'templates/'+theme_path[7:]
         with open(template_path, 'w') as f:
             f.write(html)
