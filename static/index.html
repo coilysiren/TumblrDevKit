@@ -1,224 +1,104 @@
-<!-- mew!!! -->
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- DEFAULT VARIABLES -->
-    <meta name="color:Background" content="#3b627e" />
-    <meta name="font:Title" content="Arial" />
-    <meta name="font:Body" content="Arial" />
-    <meta name="font:Accent" content="Lucida Sans" />
-    <meta name="if:Show People I Follow" content="1" />
-    <meta name="if:Show Tags" content="1" />
-    <meta name="if:Show Album Art on Audio Posts" content="1" />
-    <meta name="text:Disqus Shortname" content="" />
-    <meta name="image:Header" content="" />
-    <meta name="image:Background" content="" />
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{Title}{block:SearchPage}, Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
-    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
-    <link rel="shortcut icon" href="{Favicon}" />
-    <link rel="alternate" type="application/rss+xml" href="{RSS}" />
-</head>
-<body>
-    <div id="wrapper">
-        <div id="title">
-            <a href="/">
-                {block:IfHeaderImage}<img src="{image:Header}" />{/block:IfHeaderImage}
-                {block:IfNotHeaderImage}{Title}{/block:IfNotHeaderImage}
-            </a>
-        </div>
-
-        <div id="content">
-
-            {block:SearchPage}
-                <div id="searchresults" class="searchresultcount">{SearchResultCount} results for <strong>"{SearchQuery}"</strong></div>
-            {/block:SearchPage}
-
-            {block:NoSearchResults}
-                <style type="text/css">
-                    .searchresultcount {
-                        display: none;
-                    }
-                </style>
-                <div id="searchresults">No results for <strong>"{SearchQuery}"</strong></div>
-            {/block:NoSearchResults}
-
-            {block:Posts}
-                <div class="post">
-
-                    {block:Photo}
-                        <div class="media">{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}</div>
-                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
-                    {/block:Photo}
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}</title>
+    {block:Description}<meta name="description" content="{MetaDescription}">{/block:Description}
+    <!-- resources -->
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://45.55.8.104:5000/static/css/main.css" rel="stylesheet">
+  </head>
+  <body>
 
 
-                    {block:Video}
-                        <div class="media">{Video-500}</div>
-                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
-                    {/block:Video}
-
-                    {block:Audio}
-                        {block:IfShowAlbumArtOnAudioPosts}
-                            {block:AlbumArt}
-                                <div class="album_art">
-                                    <img src="{AlbumArtURL}" alt="{block:Artist}{Artist}{/block:Artist}{block:TrackName} - {TrackName}{/block:TrackName}" style="margin-bottom: 10px" />
-                                </div>
-                            {/block:AlbumArt}
-                        {/block:IfShowAlbumArtOnAudioPosts}
-
-                        <div class="audio">
-                            <div class="player">{AudioPlayerWhite}</div>
-                            <div class="meta">{PlayCountWithLabel}{block:ExternalAudio} &bull; <a href="{ExternalAudioURL}">download</a>{/block:ExternalAudio}</div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                        {block:Caption}<div class="copy">{Caption}</div>{/block:Caption}
-                    {/block:Audio}
-
-                    {block:Quote}
-                        <div class="quote {Length}">{Quote}</div>
-                        <div class="copy">
-                            <div class="quotebg">“</div>
-                            {block:Source}
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                    <tr>
-                                        <td valign="top" style="width: 20px">&mdash;</td>
-                                        <td valign="top" class="quote_source">
-                                            {Source}
-                                        </td>
-                                    </tr>
-                                </table>
-                            {/block:Source}
-                        </div>
-                    {/block:Quote}
-
-                    {block:Text}
-                        {block:Title}<div class="title">{Title}</div>{/block:Title}
-                        <div class="copy">{Body}</div>
-                    {/block:Text}
-
-                    {block:Answer}
-                        <div class="question">
-                            <div class="nipple"></div>
-                            {Question}
-                        </div>
-                        <div class="asker_container"><img src="{AskerPortraitURL-24}">{Asker}</div>
-                        <div class="copy">{Answer}</div>
-                    {/block:Answer}
-
-                    {block:Chat}
-                        {block:Title}<div class="title">{Title}</div>{/block:Title}
-                        <div class="chat">
-                            <div class="lines">
-                                {block:Lines}
-                                    <div class="line {Alt}">{block:Label}<strong>{Label}</strong>{/block:Label} {Line}</div>
-                                {/block:Lines}
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                        <div style="height: 10px"></div>
-                    {/block:Chat}
-
-                    {block:Link}
-                        <div class="link"><a href="{URL}" {Target}>{Name} &raquo;</a></div>
-                        {block:Description}<div class="copy">{Description}</div>{/block:Description}
-                    {/block:Link}
-
-                    {block:Date}
-                        <a href="{Permalink}">
-                            <div class="footer">
-                                <div class="date">
-                                    {block:Reblog}Reblogged{/block:Reblog}
-                                    {block:NotReblog}Posted{/block:NotReblog}
-
-                                    {TimeAgo}
-
-                                    {block:Reblog}from {ReblogParentName} {block:RebloggedFromReblog}(originally from {ReblogRootName}){/block:RebloggedFromReblog}{/block:Reblog}
-                                    {block:FromBookmarklet}from bookmarklet{/block:FromBookmarklet}
-                                    {block:FromMobile}from mobile{/block:FromMobile}
-                                </div>
-                                <div class="notes">{block:NoteCount}{NoteCountWithLabel}{/block:NoteCount} {block:IfDisqusShortname}{block:NoteCount}&bull;{/block:NoteCount} <a href="{Permalink}#disqus_thread">view comments</a>{/block:IfDisqusShortname}</div>
-                                <div class="clear"></div>
-                            </div>
-                        </a>
-                    {/block:Date}
-
-                    {block:IfShowTags}
-                        {block:HasTags}<div class="footer"><div class="tags">Tagged: {block:Tags}<a href="{TagURL}">{Tag}</a><span class="tag-commas">, </span>{/block:Tags}.</div></div>{/block:HasTags}
-                    {/block:IfShowTags}
-
-                    {block:PostNotes}<div class="notecontainer">{PostNotes}</div>{/block:PostNotes}
-
-                </div>
-                <div class="bottom"></div>
-            {/block:Posts}
-
-            {block:Pagination}
-                <div id="navigation">
-                    {block:PreviousPage}<a href="{PreviousPage}">&larr; previous page</a>{/block:PreviousPage}
-                    {block:NextPage}<a href="{NextPage}">next page &rarr;</a>{/block:NextPage}
-                </div>
-            {/block:Pagination}
-
-        </div>
-
-        <div id="sidebar">
-            <div id="top">
-                <div id="avatar"><a href="/"><img src="{PortraitURL-128}" /></a></div>
-                <div id="description">{Description}</div>
-
-                {block:HasPages}
-                    <div id="pages">
-                        {block:Pages}<a href="{URL}" class="page">{Label}</a>{/block:Pages}
-                        <div class="clear"></div>
-                    </div>
-                {/block:HasPages}
-
-                <div id="search">
-                    <form action="/search" method="get" id="search-form">
-                        <input type="hidden" name="t" value="{Name}" />
-                        <input type="hidden" name="scope" value="all_of_tumblr" />
-                        <input type="text" name="q" class="query" value="{SearchQuery}" />
-                        <input type="submit" value="Search" class="submit" />
-                        <div class="clear"></div>
-                    </form>
-                </div>
-                <div id="search-scope">
-                    <input type="radio" id="search-scope-me" name="scope" checked onclick="document.getElementById('search-form').action='/search'" /> <label for="search-scope-me" onclick="document.getElementById('search-form').action='/search'">My Blog</label>
-                    <input type="radio" id="search-scope-all" name="scope" onclick="document.getElementById('search-form').action='http://tumblr.com/search'" /> <label for="search-scope-all" onclick="document.getElementById('search-form').action='http://tumblr.com/search'">All of Tumblr</label>
-                </div>
-
-                <a href="http://www.tumblr.com/follow/{Name}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
-
-                {block:IfShowPeopleIFollow}
-                    {block:Following}
-                        <div class="heading" id="following">Following</div>
-                        <div class="content" id="following-avatars">
-                            {block:Followed}<a href="{FollowedURL}"><img src="{FollowedPortraitURL-40}" /></a>{/block:Followed}
-                        </div>
-                    {/block:Following}
-                {/block:IfShowPeopleIFollow}
-
-                <div id="buttons">
-                    <div class="row">
-                        <div class="button" id="button-rss"><a href="{RSS}">RSS Feed</a></div>
-                        <div class="button" id="button-random"><a href="/random">Random</a></div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="row">
-                        <div class="button" id="button-archive"><a href="/archive">Archive</a></div>
-                        <div class="button" id="button-mobile"><a href="/mobile">Mobile</a></div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+              <button id="navbar-button" type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle collapsed"><span class="sr-only">Menu</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+              </button><a href="/" class="navbar-brand">Lynn Cyrin</a>
             </div>
-
-            <div id="bottom"></div>
-            <div id="copyright">&copy; {CopyrightYears} <a href="http://www.tumblr.com">Powered by Tumblr</a></div>
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+              </ul>
+            </div>
         </div>
+    </nav>
 
-        <div class="clear"></div>
-    </div>
-</body>
+
+    <div class="container"><div class="row">
+        <main class="col-sm-8">
+            {block:Posts}
+                <article>
+                {block:Text}
+                        {block:Title}<h3><a href="{Permalink}">{Title}</a></h3>{/block:Title}
+                        <h4>Preface</h4>
+                        {block:Body}<div class="body-text">{Body}</div>{/block:Body}
+                {/block:Text}
+                </article>
+            {/block:Posts}
+        </main>
+
+
+        <aside class="col-sm-3 col-sm-offset-1">
+            <div class="sidebar-module sidebar-module-about">
+                <div class="avatar"><img src="http://www.gravatar.com/avatar/b1cde28ce033c8cd6f4be4059efbe00b.png?size=160" alt="A picture of Lynn Cyrin"/></div>
+                <p>Lynn Cyrin dot me is the #1 website to go to for top of the line information on Full Stack Web Developer and Activist, Lynn "Cyrin" Conway.</p>
+            </div>
+            <div class="sidebar-module">
+            <h4>Tagged Posts</h4>
+            <ol class="list-unstyled">
+                <li><a href="/tagged/life">Life</a></li>
+                <li><a href="/tagged/advocacy">Advocacy</a></li>
+                <li><a href="/tagged/tech">Tech</a></li>
+            </ol>
+            <h4>Work</h4>
+            <ol class="list-unstyled">
+                <li><a href="/resume.pdf"><i class="fa fa-file-text"></i><span>PDF resume</span></a></li>
+                <li><a href="https://gitlab.com/cyrin"><i class="fa fa-git"></i><span>gitlab.com/cyrin</span></a></li>
+                <li><a href="https://github.com/lynnco"><i class="fa fa-github"></i><span>github.com/lynnco</span></a></li>
+            </ol>
+            <h4>Contact / Links</h4>
+            <ol class="list-unstyled">
+                <li><a href="https://twitter.com/lynncyrin"><i class="fa fa-twitter"></i><span>@lynncyrin</span></a></li>
+                <li><i class="fa fa-envelope"></i><span>firemagelynn@gmail.com</span></li>
+                <li><i class="fa fa-paypal"></i><span>firemagelynn@gmail.com</span></li>
+                <li><a href="https://www.patreon.com/lynncyrin"><i class="fa fa-dollar"></i><span>patreon.com/lynncyrin</span></a></li>
+                <li><a href="http://linkedin.com/in/lynncyrin"><i class="fa fa-linkedin"></i><span>linkedin.com/lynncyrin</span></a></li>
+            </ol>
+            <h4>Gamer Stuff</h4>
+            <ol class="list-unstyled">
+                <li><a href="http://guildwars2.com"><img src="http://www.sinnlos-gehts-los.de/images/GuildWars2-32x32.png" alt="GW2 Icon"/><span>Cyrin.7193</span></a></li>
+                <li><a href="http://leagueoflegends.com/"><img src="http://img.informer.com/icons/png/32/2888/2888706.png" alt="LoL Icon"/><span>FireMageLynn</span></a></li>
+                <li><a href="http://us.battle.net/hearthstone/"><img src="http://i.imgur.com/YOZw1xR.jpg" alt="GW2 Icon"/><span>CyrinSong#1413</span></a></li>
+                </ol>
+            </div>
+        </aside>
+    </div></div>
+
+
+    <footer>
+      <p>A Lynn Cyrin Website</p>
+      <p><a href="#">Back to top</a>
+      </p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js'></script>
+    <script>
+        //google analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-46840712-1', 'lynncyrin.me');
+        ga('send', 'pageview');
+    </script>
+  </body>
 </html>
