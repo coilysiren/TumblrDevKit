@@ -21,7 +21,8 @@ def parse_all_themes(*args, **kwargs):
 
         # we want to watcher not to crash in case of parse errors
         try: html = parser.parse_theme(html)
-        except: print('PARSE ERROR!!!')
+        except (IndexError) as e:
+            print(e)
 
         template_path = 'templates/'+theme_path[7:]
         with open(template_path, 'w') as f:
@@ -38,6 +39,12 @@ def watcher(callback, path):
     watch.schedule(handler, '.')
     watch.start()
 
+def html_escape(func):
+    def wrapped(*args, **kwargs):
+        from html import escape
+        return escape(func(*args, **kwargs))
+    return wrapped
+
 
 app = flask.Flask(__name__)
 
@@ -47,11 +54,18 @@ def add_data_to_context():
     with open('data.json', 'r') as f:
         data = json.load(f)
 
-    data.update(response['response']['blog'])
-    data['posts'] = response['response']['posts']
+    data.update(data['response']['blog'])
+    data['posts'] = data['response']['posts']
     data['metadescription'] = data['description']
 
     return data
+
+@app.route('/static/index.html')
+@html_escape
+def theme_server():
+    with open('static/index.html', 'r') as f:
+        string = f.read()
+    return string
 
 @app.route('/')
 def index ():
