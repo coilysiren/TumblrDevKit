@@ -1,12 +1,21 @@
-from env import ENV
+# builtin
+from glob import glob
 from time import sleep
+
+# local
+from env import ENV
+
+# external
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 
 driver = webdriver.Firefox()
 select = driver.find_element_by_css_selector
 
-driver.get('http://localhost:5000/static/index.html')
+# themes = glob('static/themes/*.*')
+# blog = themes[0].split('/')[-1].split('.')[0]
+driver.get('http://localhost:5000/static/themes/cyrinsong.html')
 select('*').send_keys(Keys.CONTROL, 'a')
 select('*').send_keys(Keys.CONTROL, 'c')
 
