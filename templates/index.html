@@ -13,8 +13,8 @@
     <meta name="image:Background" content="" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ title }}{block:SearchPage}, Search results for: {{ searchquery }}{/block:SearchPage}{% if postsummary %}, {{ postsummary }}{% endif %}</title>
-    {block:Description}<meta name="description" content="{{ metadescription }}" />{/block:Description}
+    <title>{{ title }}{% if searchpage %}, search results for: {{ searchquery }}{% endif %}{% if postsummary %}, {{ postsummary }}{% endif %}</title>
+    {% if description %}<meta name="description" content="{{ metadescription }}" />{% endif %}
     <link rel="shortcut icon" href="{{ favicon }}" />
     <link rel="alternate" type="application/rss+xml" href="{{ rss }}" />
 </head>
@@ -22,142 +22,142 @@
     <div id="wrapper">
         <div id="title">
             <a href="/">
-                {block:IfHeaderImage}<img src="{image:Header}" />{/block:IfHeaderImage}
-                {block:IfNotHeaderImage}{{ title }}{/block:IfNotHeaderImage}
+                {% if ifheaderimage %}<img src="{image:header}" />{% endif %}
+                {% if ifnotheaderimage %}{{ title }}{% endif %}
             </a>
         </div>
 
         <div id="content">
 
-            {block:SearchPage}
+            {% if searchpage %}
                 <div id="searchresults" class="searchresultcount">{{ searchresultcount }} results for <strong>"{{ searchquery }}"</strong></div>
-            {/block:SearchPage}
+            {% endif %}
 
-            {block:NoSearchResults}
+            {% if nosearchresults %}
                 <style type="text/css">
                     .searchresultcount {
                         display: none;
                     }
                 </style>
-                <div id="searchresults">No results for <strong>"{{ searchquery }}"</strong></div>
-            {/block:NoSearchResults}
+                <div id="searchresults">no results for <strong>"{{ searchquery }}"</strong></div>
+            {% endif %}
 
             {% for post in posts %}
                 <div class="post">
 
-                    {block:post.photo}
-                        <div class="media">{{ post.linkopentag }}<img src="{{ post.photourl_500 }}" alt="{{ post.photoalt }}" />{{ post.linkclosetag }}</div>
-                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
-                    {/block:Photo}
+                    {% if photo %}
+                        <div class="media">{{ linkopentag }}<img src="{{ photourl_500 }}" alt="{{ photoalt }}" />{{ linkclosetag }}</div>
+                        {% if caption %}<div class="copy">{{ caption }}</div>{% endif %}
+                    {% endif %}
 
 
-                    {block:post.video}
-                        <div class="media">{{ post.video_500 }}</div>
-                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
-                    {/block:Video}
+                    {% if video %}
+                        <div class="media">{{ video_500 }}</div>
+                        {% if caption %}<div class="copy">{{ caption }}</div>{% endif %}
+                    {% endif %}
 
-                    {block:post.audio}
-                        {block:post.ifshowalbumartonaudioposts}
-                            {block:post.albumart}
+                    {% if audio %}
+                        {% if ifshowalbumartonaudioposts %}
+                            {% if albumart %}
                                 <div class="album_art">
-                                    <img src="{{ post.albumarturl }}" alt="{block:post.artist}{{ post.artist }}{/block:Artist}{block:post.trackname} - {{ post.trackname }}{/block:TrackName}" style="margin-bottom: 10px" />
+                                    <img src="{{ albumarturl }}" alt="{% if artist %}{{ artist }}{% endif %}{% if trackname %} - {{ trackname }}{% endif %}" style="margin-bottom: 10px" />
                                 </div>
-                            {/block:AlbumArt}
-                        {/block:IfShowAlbumArtOnAudioPosts}
+                            {% endif %}
+                        {% endif %}
 
                         <div class="audio">
-                            <div class="player">{{ post.audioplayerwhite }}</div>
-                            <div class="meta">{{ post.playcountwithlabel }}{block:post.externalaudio} &bull; <a href="{{ post.externalaudiourl }}">download</a>{/block:ExternalAudio}</div>
+                            <div class="player">{{ audioplayerwhite }}</div>
+                            <div class="meta">{{ playcountwithlabel }}{% if externalaudio %} &bull; <a href="{{ externalaudiourl }}">download</a>{% endif %}</div>
                             <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
-                        {block:post.caption}<div class="copy">{{ post.caption }}</div>{/block:Caption}
-                    {/block:Audio}
+                        {% if caption %}<div class="copy">{{ caption }}</div>{% endif %}
+                    {% endif %}
 
-                    {block:post.quote}
-                        <div class="quote {{ post.length }}">{{ post.quote }}</div>
+                    {% if quote %}
+                        <div class="quote {{ length }}">{{ quote }}</div>
                         <div class="copy">
                             <div class="quotebg">“</div>
-                            {block:post.source}
+                            {% if source %}
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td valign="top" style="width: 20px">&mdash;</td>
                                         <td valign="top" class="quote_source">
-                                            {{ post.source }}
+                                            {{ source }}
                                         </td>
                                     </tr>
                                 </table>
-                            {/block:Source}
+                            {% endif %}
                         </div>
-                    {/block:Quote}
+                    {% endif %}
 
-                    {block:post.text}
-                        {block:post.title}<div class="title">{{ post.title }}</div>{/block:Title}
-                        <div class="copy">{{ post.body }}</div>
-                    {/block:Text}
+                    {% if text %}
+                        {% if title %}<div class="title">{{ title }}</div>{% endif %}
+                        <div class="copy">{{ body }}</div>
+                    {% endif %}
 
-                    {block:post.answer}
+                    {% if answer %}
                         <div class="question">
                             <div class="nipple"></div>
-                            {{ post.question }}
+                            {{ question }}
                         </div>
-                        <div class="asker_container"><img src="{{ post.askerportraiturl_24 }}">{{ post.asker }}</div>
-                        <div class="copy">{{ post.answer }}</div>
-                    {/block:Answer}
+                        <div class="asker_container"><img src="{{ askerportraiturl_24 }}">{{ asker }}</div>
+                        <div class="copy">{{ answer }}</div>
+                    {% endif %}
 
-                    {block:post.chat}
-                        {block:post.title}<div class="title">{{ post.title }}</div>{/block:Title}
+                    {% if chat %}
+                        {% if title %}<div class="title">{{ title }}</div>{% endif %}
                         <div class="chat">
                             <div class="lines">
-                                {block:post.lines}
-                                    <div class="line {{ post.alt }}">{block:post.label}<strong>{{ post.label }}</strong>{/block:Label} {{ post.line }}</div>
-                                {/block:Lines}
+                                {% if lines %}
+                                    <div class="line {{ alt }}">{% if label %}<strong>{{ label }}</strong>{% endif %} {{ line }}</div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="clear"></div>
                         <div style="height: 10px"></div>
-                    {/block:Chat}
+                    {% endif %}
 
-                    {block:post.link}
-                        <div class="link"><a href="{{ post.url }}" {{ post.target }}>{{ post.name }} &raquo;</a></div>
-                        {block:post.description}<div class="copy">{{ post.description }}</div>{/block:Description}
-                    {/block:Link}
+                    {% if link %}
+                        <div class="link"><a href="{{ url }}" {{ target }}>{{ name }} &raquo;</a></div>
+                        {% if description %}<div class="copy">{{ description }}</div>{% endif %}
+                    {% endif %}
 
-                    {block:post.date}
-                        <a href="{{ post.permalink }}">
+                    {% if date %}
+                        <a href="{{ permalink }}">
                             <div class="footer">
                                 <div class="date">
-                                    {block:post.reblog}Reblogged{/block:Reblog}
-                                    {block:post.notreblog}Posted{/block:NotReblog}
+                                    {% if reblog %}reblogged{% endif %}
+                                    {% if notreblog %}posted{% endif %}
 
-                                    {{ post.timeago }}
+                                    {{ timeago }}
 
-                                    {block:post.reblog}from {{ post.reblogparentname }} {block:post.rebloggedfromreblog}(originally from {{ post.reblogrootname }}){/block:RebloggedFromReblog}{/block:Reblog}
-                                    {block:post.frombookmarklet}from bookmarklet{/block:FromBookmarklet}
-                                    {block:post.frommobile}from mobile{/block:FromMobile}
+                                    {% if reblog %}from {{ reblogparentname }} {% if rebloggedfromreblog %}(originally from {{ reblogrootname }}){% endif %}{% endif %}
+                                    {% if frombookmarklet %}from bookmarklet{% endif %}
+                                    {% if frommobile %}from mobile{% endif %}
                                 </div>
-                                <div class="notes">{block:post.notecount}{{ post.notecountwithlabel }}{/block:NoteCount} {block:post.ifdisqusshortname}{block:post.notecount}&bull;{/block:NoteCount} <a href="{{ post.permalink }}#disqus_thread">view comments</a>{/block:IfDisqusShortname}</div>
+                                <div class="notes">{% if notecount %}{{ notecountwithlabel }}{% endif %} {% if ifdisqusshortname %}{% if notecount %}&bull;{% endif %} <a href="{{ permalink }}#disqus_thread">view comments</a>{% endif %}</div>
                                 <div class="clear"></div>
                             </div>
                         </a>
-                    {/block:Date}
+                    {% endif %}
 
-                    {block:post.ifshowtags}
-                        {block:post.hastags}<div class="footer"><div class="tags">Tagged: {block:post.tags}<a href="{{ post.tagurl }}">{{ post.tag }}</a><span class="tag-commas">, </span>{/block:Tags}.</div></div>{/block:HasTags}
-                    {/block:IfShowTags}
+                    {% if ifshowtags %}
+                        {% if hastags %}<div class="footer"><div class="tags">tagged: {% if tags %}<a href="{{ tagurl }}">{{ tag }}</a><span class="tag-commas">, </span>{% endif %}.</div></div>{% endif %}
+                    {% endif %}
 
-                    {block:post.postnotes}<div class="notecontainer">{{ post.postnotes }}</div>{/block:PostNotes}
+                    {% if postnotes %}<div class="notecontainer">{{ postnotes }}</div>{% endif %}
 
                 </div>
                 <div class="bottom"></div>
             {% endfor %}
 
-            {block:Pagination}
+            {% if pagination %}
                 <div id="navigation">
-                    {block:PreviousPage}<a href="{{ previouspage }}">&larr; previous page</a>{/block:PreviousPage}
-                    {block:NextPage}<a href="{{ nextpage }}">next page &rarr;</a>{/block:NextPage}
+                    {% if previouspage %}<a href="{{ previouspage }}">&larr; previous page</a>{% endif %}
+                    {% if nextpage %}<a href="{{ nextpage }}">next page &rarr;</a>{% endif %}
                 </div>
-            {/block:Pagination}
+            {% endif %}
 
         </div>
 
@@ -166,12 +166,12 @@
                 <div id="avatar"><a href="/"><img src="{{ portraiturl_128 }}" /></a></div>
                 <div id="description">{{ description }}</div>
 
-                {block:HasPages}
+                {% if haspages %}
                     <div id="pages">
-                        {block:Pages}<a href="{{ url }}" class="page">{{ label }}</a>{/block:Pages}
+                        {% if pages %}<a href="{{ url }}" class="page">{{ label }}</a>{% endif %}
                         <div class="clear"></div>
                     </div>
-                {/block:HasPages}
+                {% endif %}
 
                 <div id="search">
                     <form action="/search" method="get" id="search-form">
@@ -189,14 +189,14 @@
 
                 <a href="http://www.tumblr.com/follow/{{ name }}"><div class="heading" id="followontumblr">Follow on Tumblr</div></a>
 
-                {block:IfShowPeopleIFollow}
-                    {block:Following}
-                        <div class="heading" id="following">Following</div>
+                {% if ifshowpeopleifollow %}
+                    {% if following %}
+                        <div class="heading" id="following">following</div>
                         <div class="content" id="following-avatars">
-                            {block:Followed}<a href="{{ followedurl }}"><img src="{{ followedportraiturl_40 }}" /></a>{/block:Followed}
+                            {% if followed %}<a href="{{ followedurl }}"><img src="{{ followedportraiturl_40 }}" /></a>{% endif %}
                         </div>
-                    {/block:Following}
-                {/block:IfShowPeopleIFollow}
+                    {% endif %}
+                {% endif %}
 
                 <div id="buttons">
                     <div class="row">
