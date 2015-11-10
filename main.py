@@ -60,10 +60,10 @@ def add_data_to_context():
 
     return data
 
-@app.route('/static/index.html')
+@app.route('/static/themes/<path>')
 @html_escape
-def theme_server():
-    with open('static/index.html', 'r') as f:
+def theme_server(path):
+    with open('static/themes/'+path, 'r') as f:
         string = f.read()
     return string
 
