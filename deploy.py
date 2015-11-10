@@ -34,3 +34,5 @@ select('html').send_keys(Keys.TAB, Keys.CONTROL, 'v')
 select('#edit_html_panel .buttons_right .button.green').click() # update
 select('#edit_html_panel .buttons_right .button.blue').click() # save
 select('#edit_html_panel .buttons_left .icon_arrow_thin_left').click() # back
+
+driver.quit()
