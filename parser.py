@@ -103,3 +103,7 @@ def parse_theme(html):
 
 
     return html
+
+if __name__ == '__main__':
+    watcher(parse_all_themes, 'themes/')
+    parse_all_themes()

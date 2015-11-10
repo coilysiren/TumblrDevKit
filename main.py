@@ -40,6 +40,4 @@ def index ():
 
 
 if __name__ == '__main__':
-    watcher(parse_all_themes, 'themes/')
-    parse_all_themes()
     app.run(debug=True)
