@@ -1,14 +1,14 @@
 # builtin
 from glob import glob
 from time import sleep
-
-# local
-from env import ENV
+from os import environ as ENV
 
 # external
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+load_dotenv('.env')
 
 driver = webdriver.Firefox()
 select = driver.find_element_by_css_selector

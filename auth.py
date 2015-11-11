@@ -1,14 +1,23 @@
 # internal
+from os import environ as ENV
 
 # external
 import flask
 import pytumblr
-
-# local
-from env import ENV, TUMBLR_ENV
+from dotenv import load_dotenv
 
 
 #INITS
+
+# environment
+load_dotenv('.env')
+TUMBLR_ENV = [
+    ENV['CONSUMER_KEY'],
+    ENV['CONSUMER_SECRET'],
+    ENV['OAUTH_KEY'],
+    ENV['OAUTH_SECRET'],
+]
+
 
 # flask application
 app = flask.Flask(__name__)
