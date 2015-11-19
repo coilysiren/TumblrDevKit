@@ -17,15 +17,27 @@
   </head>
   <body>
 
+
+    <header class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">{Title}</a>
+        </div>
+      </div>
+    </header>
+
+
     <div class="container"><div class="row">
         <aside class="col-sm-3 ">
+            <!-- sidebar header -->
             <div class="sidebar-module sidebar-module-about">
                 <div class="avatar"><img src="http://www.gravatar.com/avatar/b1cde28ce033c8cd6f4be4059efbe00b.png?size=160" alt="A picture of Lynn Cyrin"/></div>
                 <p>{block:Description}{Description}{/block:Description}</p>
             </div>
+            <!-- / sidebar header -->
 
             {block:HasPages}
-            <!-- -->
+            <!-- sidebar module -->
             <div class="sidebar-module">
                 <h4>Pages</h4>
                 <ol class="list-unstyled">
@@ -34,9 +46,8 @@
                     {/block:Pages}
                 </ol>
             </div>
-            <!--  -->
+            <!-- / sidebar module -->
             {/block:HasPages}
-
         </aside>
 
 
