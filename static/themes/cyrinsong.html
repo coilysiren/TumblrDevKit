@@ -18,7 +18,29 @@
   <body>
 
     <div class="container"><div class="row">
-        <main class="col-sm-8">
+        <aside class="col-sm-3 ">
+            <div class="sidebar-module sidebar-module-about">
+                <div class="avatar"><img src="http://www.gravatar.com/avatar/b1cde28ce033c8cd6f4be4059efbe00b.png?size=160" alt="A picture of Lynn Cyrin"/></div>
+                <p>{block:Description}{Description}{/block:Description}</p>
+            </div>
+
+            {block:HasPages}
+            <!-- -->
+            <div class="sidebar-module">
+                <h4>Pages</h4>
+                <ol class="list-unstyled">
+                    {block:Pages}
+                    <li><a href="{URL}">{Label}</a></li>
+                    {/block:Pages}
+                </ol>
+            </div>
+            <!--  -->
+            {/block:HasPages}
+
+        </aside>
+
+
+        <main class="col-sm-8 col-sm-offset-1">
             {block:Posts}
                 <article>
                 {block:Text}
@@ -29,42 +51,6 @@
                 </article>
             {/block:Posts}
         </main>
-
-
-        <aside class="col-sm-3 col-sm-offset-1">
-            <div class="sidebar-module sidebar-module-about">
-                <div class="avatar"><img src="http://www.gravatar.com/avatar/b1cde28ce033c8cd6f4be4059efbe00b.png?size=160" alt="A picture of Lynn Cyrin"/></div>
-                <p>{block:Description}{MetaDescription}{/block:Description}</p>
-            </div>
-            <div class="sidebar-module">
-            <h4>Tagged Posts</h4>
-            <ol class="list-unstyled">
-                <li><a href="/tagged/life">Life</a></li>
-                <li><a href="/tagged/advocacy">Advocacy</a></li>
-                <li><a href="/tagged/tech">Tech</a></li>
-            </ol>
-            <h4>Work</h4>
-            <ol class="list-unstyled">
-                <li><a href="/resume.pdf"><i class="fa fa-file-text"></i><span>PDF resume</span></a></li>
-                <li><a href="https://gitlab.com/cyrin"><i class="fa fa-git"></i><span>gitlab.com/cyrin</span></a></li>
-                <li><a href="https://github.com/lynnco"><i class="fa fa-github"></i><span>github.com/lynnco</span></a></li>
-            </ol>
-            <h4>Contact / Links</h4>
-            <ol class="list-unstyled">
-                <li><a href="https://twitter.com/lynncyrin"><i class="fa fa-twitter"></i><span>@lynncyrin</span></a></li>
-                <li><i class="fa fa-envelope"></i><span>firemagelynn@gmail.com</span></li>
-                <li><i class="fa fa-paypal"></i><span>firemagelynn@gmail.com</span></li>
-                <li><a href="https://www.patreon.com/lynncyrin"><i class="fa fa-dollar"></i><span>patreon.com/lynncyrin</span></a></li>
-                <li><a href="http://linkedin.com/in/lynncyrin"><i class="fa fa-linkedin"></i><span>linkedin.com/lynncyrin</span></a></li>
-            </ol>
-            <h4>Gamer Stuff</h4>
-            <ol class="list-unstyled">
-                <li><a href="http://guildwars2.com"><img src="http://www.sinnlos-gehts-los.de/images/GuildWars2-32x32.png" alt="GW2 Icon"/><span>Cyrin.7193</span></a></li>
-                <li><a href="http://leagueoflegends.com/"><img src="http://img.informer.com/icons/png/32/2888/2888706.png" alt="LoL Icon"/><span>FireMageLynn</span></a></li>
-                <li><a href="http://us.battle.net/hearthstone/"><img src="http://i.imgur.com/YOZw1xR.jpg" alt="GW2 Icon"/><span>CyrinSong#1413</span></a></li>
-                </ol>
-            </div>
-        </aside>
     </div></div>
 
 
