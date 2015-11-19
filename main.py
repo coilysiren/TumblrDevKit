@@ -1,9 +1,11 @@
 # builtin
 import os
 import json
+from os import environ as ENV
 
 # ext
 import flask
+from dotenv import load_dotenv
 
 
 def html_escape(func):
@@ -13,6 +15,7 @@ def html_escape(func):
     return wrapped
 
 
+load_dotenv('.env')
 app = flask.Flask(__name__)
 
 
@@ -40,4 +43,4 @@ def theme_server(path):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=int(ENV.get('PORT', 5000)))
