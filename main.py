@@ -16,16 +16,16 @@ def html_escape(func):
 app = flask.Flask(__name__)
 
 
-@app.context_processor
-def add_data_to_context():
-    with open('data.json', 'r') as f:
-        data = json.load(f)
+# @app.context_processor
+# def add_data_to_context():
+#     with open('data.json', 'r') as f:
+#         data = json.load(f)
 
-    data.update(data['response']['blog'])
-    data['posts'] = data['response']['posts']
-    data['metadescription'] = data['description']
+#     data.update(data['response']['blog'])
+#     data['posts'] = data['response']['posts']
+#     data['metadescription'] = data['description']
 
-    return data
+#     return data
 
 @app.route('/static/themes/<path>')
 @html_escape
@@ -34,9 +34,9 @@ def theme_server(path):
         string = f.read()
     return string
 
-@app.route('/')
-def index ():
-    return flask.render_template('index.html')
+# @app.route('/')
+# def index ():
+#     return flask.render_template('index.html')
 
 
 if __name__ == '__main__':
