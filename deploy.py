@@ -1,12 +1,34 @@
 # builtin
 from glob import glob
 from time import sleep
+from html import escape
 from os import environ as ENV
 
 # external
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
+def build_themes():
+    themes = glob('static/themes/*.html')
+    style_tag = '<style type="text/css" source="local">{}</style>'
+    
+    for theme_path in themes:
+        blog_name = theme_path.split('/')[-1].split('.')[0]        
+        
+        with open('static/themes/'+blog_name+'.css', 'r') as f:
+            css = f.read()
+        css += '{CustomCSS'}
+        style_replace = style_tag.format(css)
+
+        with open('static/themes/'+blog_name+'.html', 'r') as f:
+            html = f.read()
+        html.replace(style_tag, style_replace)
+        html = escape(html)
+        
+        with open('static/themes/built/'+blog_name+'.html', 'w') as f:
+            f.write(html)
+        
 
 def deploy():
 
