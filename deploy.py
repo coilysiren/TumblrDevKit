@@ -12,10 +12,10 @@ from selenium.webdriver.common.keys import Keys
 def build_themes():
     themes = glob('static/themes/*.html')
     style_tag = '<style type="text/css" source="local">{}</style>'
-    
+
     for theme_path in themes:
-        blog_name = theme_path.split('/')[-1].split('.')[0]        
-        
+        blog_name = theme_path.split('/')[-1].split('.')[0]
+
         with open('static/themes/'+blog_name+'.css', 'r') as f:
             css = f.read()
         css += '{CustomCSS'}
@@ -25,12 +25,12 @@ def build_themes():
             html = f.read()
         html.replace(style_tag, style_replace)
         html = escape(html)
-        
+
         with open('static/themes/built/'+blog_name+'.html', 'w') as f:
             f.write(html)
-        
 
-def deploy():
+
+def publish():
 
     load_dotenv('.env')
 
