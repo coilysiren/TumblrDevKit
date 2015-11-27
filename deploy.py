@@ -43,6 +43,7 @@ def publish():
             driver.quit()
             print('[ERROR] Theme server not running')
             return
+
         # copy it
         select('*').send_keys(Keys.CONTROL, 'a')
         select('*').send_keys(Keys.CONTROL, 'c')
@@ -53,12 +54,14 @@ def publish():
         if 'Request denied' in driver.title:
             print('[ERROR] Blog name \"{}\" is invalid'.format(blog))
             continue
+
         # go to the html section, paste content
         select('#edit_html_button').click()
         sleep(0.1)
         select('html').send_keys(Keys.TAB, Keys.CONTROL, 'a')
         select('html').send_keys(Keys.TAB, Keys.DELETE)
         select('html').send_keys(Keys.TAB, Keys.CONTROL, 'v')
+
         # save
         select('#edit_html_panel .buttons_right .button.green').click() # update
         select('#edit_html_panel .buttons_right .button.blue').click() # save
