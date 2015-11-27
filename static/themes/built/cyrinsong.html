@@ -1,0 +1,329 @@
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;!-- meta --&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1 maximum-scale=1, user-scalable=no&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;title&gt;{Title}{block:PostSummary} // {PostSummary}{/block:PostSummary}&lt;/title&gt;
+    {block:Description}&lt;meta name=&quot;description&quot; content=&quot;{MetaDescription}&quot;&gt;{/block:Description}
+    &lt;link rel=&quot;shortcut icon&quot; href=&quot;{Favicon}&quot;&gt;
+    &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;{PortraitURL-128}&quot;&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; href=&quot;{RSS}&quot;&gt;
+    &lt;meta name=&quot;{}&quot; content=&quot;{}&quot;/&gt;
+    &lt;!-- resources --&gt;
+    &lt;link href=&quot;http://fonts.googleapis.com/css?family=Montserrat:400,700&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;link href=&quot;http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css&quot; rel=&#x27;stylesheet&#x27; type=&#x27;text/css&#x27;&gt;
+    &lt;link href=&quot;//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;style type=&quot;text/css&quot; source=&quot;local&quot;&gt;html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  padding-top: 80px;
+  min-width: 320px;
+}
+
+body.flush-top {
+  padding-top: 0;
+}
+
+h1, h2, h3, h4, h5, p {
+  padding: 5px 10px;
+  line-height: 1.5em;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+h1 img {
+  width: 32px;
+}
+
+@media all and (max-width: 768px) {
+  .container, .container-fluid {
+    padding: 0;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .show-large {
+    display: none !important;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .show-small {
+    display: none !important;
+  }
+}
+
+nav {
+  text-align: center;
+}
+
+.navbar-center {
+  position: absolute;
+  text-align: center;
+  padding-top: 8px;
+}
+
+nav .navbar-nav &gt; li &gt; a {
+  padding: 5px 0;
+}
+
+nav .navbar-nav &gt; li &gt; button {
+  padding: 5px 0;
+}
+
+.navbar-btn {
+  margin: 0;
+}
+
+.navbar-nav {
+  margin: 0;
+}
+
+.navbar-nav &gt; li {
+  margin-right: 15px;
+}
+
+.navbar-nav &gt; li:last-of-type {
+  margin-right: 0;
+}
+
+nav li {
+  height: 50px;
+}
+
+nav img {
+  vertical-align: bottom;
+}
+
+nav span {
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+@media all and (max-width: 768px) {
+  .navbar-nav &gt; li span {
+    display: none !important;
+  }
+  nav {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .navbar-nav &gt; li {
+    margin-right: 0;
+  }
+  nav .ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  nav .navbar-nav &gt; li &gt; a, nav .navbar-nav &gt; li &gt; button {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+main.col-sm-8 {
+  min-height: 600px;
+}
+
+main article:first-child {
+  margin-top: 0px;
+}
+
+article {
+  margin: 40px 0;
+  border-width: 5px;
+  padding: 10px 40px;
+  border-radius: 20px;
+  box-shadow: 10px 5px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+article h3 {
+  padding: 20px 35px;
+  margin: -15px -40px 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  line-height: 1.5em;
+}
+
+article h4 {
+  padding: 5px;
+  line-height: 1.5em;
+}
+
+article blockquote {
+  border-left: 5px solid #808080;
+}
+
+article img {
+  padding: 20px 40px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media all and (max-width: 768px) {
+  main.col-sm-8 {
+    padding: 0;
+  }
+  article {
+    border-radius: 0;
+  }
+  article h3 {
+    border-radius: 0;
+  }
+}
+
+.avatar-circle {
+  border-radius: 50%;
+}
+
+.sidebar-module {
+  padding: 10px 20px;
+  margin: 0 -15px 15px;
+  border-radius: 20px;
+}
+
+.sidebar-module ol {
+  padding: 0 0 20px;
+}
+
+.sidebar-module li {
+  margin: 5px 0;
+}
+
+.sidebar-module li .fa {
+  margin: 0 10px 0 0;
+}
+
+.sidebar-module li img {
+  width: 1.4em;
+  margin: 0 10px 0 0;
+}
+
+@media all and (max-width: 768px) {
+  .sidebar-module {
+    border-radius: 0;
+  }
+}
+
+.form h1 {
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+form &gt; label {
+  width: 100%;
+}
+
+form &gt; label &gt; div &gt; span {
+  text-align: right;
+  padding-top: 6px;
+  display: inline-block;
+}
+
+form &gt; label &gt; div &gt; input {
+  width: 100%;
+  padding: 6px 12px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+form &gt; label.check &gt; div &gt; input {
+  width: auto;
+  margin-left: 19px;
+  margin-right: 10px;
+}
+
+footer {
+  padding: 30px 0;
+}
+
+footer p:last-child {
+  margin-bottom: 0;
+}
+{CustomCSS}&lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+
+    &lt;header class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+      &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+          &lt;a href=&quot;/&quot; class=&quot;navbar-brand&quot;&gt;{Title}&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+
+    &lt;div class=&quot;container&quot;&gt;&lt;div class=&quot;row&quot;&gt;
+        &lt;aside class=&quot;col-sm-3 &quot;&gt;
+            &lt;!-- sidebar header --&gt;
+            &lt;div class=&quot;sidebar-module sidebar-module-about&quot;&gt;
+                {block:ShowAvatar}
+                &lt;div class=&quot;avatar&quot;&gt;
+                    &lt;img class=&quot;avatar-{AvatarShape}&quot; src=&quot;{PortraitURL-128}&quot; alt=&quot;Blog Avatar&quot;/&gt;
+                &lt;/div&gt;
+                {/block:ShowAvatar}
+                {block:ShowDescription}
+                    &lt;p&gt;{Description}&lt;/p&gt;
+                {/block:ShowDescription}
+            &lt;/div&gt;
+            &lt;!-- / sidebar header --&gt;
+
+            {block:HasPages}
+            &lt;!-- sidebar module --&gt;
+            &lt;div class=&quot;sidebar-module&quot;&gt;
+                &lt;h4&gt;Pages&lt;/h4&gt;
+                &lt;ol class=&quot;list-unstyled&quot;&gt;
+                    {block:Pages}
+                    &lt;li&gt;&lt;a href=&quot;{URL}&quot;&gt;{Label}&lt;/a&gt;&lt;/li&gt;
+                    {/block:Pages}
+                &lt;/ol&gt;
+            &lt;/div&gt;
+            &lt;!-- / sidebar module --&gt;
+            {/block:HasPages}
+        &lt;/aside&gt;
+
+
+        &lt;main class=&quot;col-sm-8 col-sm-offset-1&quot;&gt;
+            {block:Posts}
+                &lt;article&gt;
+                {block:Text}
+                        {block:Title}&lt;h3&gt;&lt;a href=&quot;{Permalink}&quot;&gt;{Title}&lt;/a&gt;&lt;/h3&gt;{/block:Title}
+                        &lt;h4&gt;Preface&lt;/h4&gt;
+                        {block:Body}&lt;div class=&quot;body-text&quot;&gt;{Body}&lt;/div&gt;{/block:Body}
+                {/block:Text}
+                &lt;/article&gt;
+            {/block:Posts}
+        &lt;/main&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+
+    &lt;footer&gt;
+      &lt;p&gt;A Lynn Cyrin Website&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;#&quot;&gt;Back to top&lt;/a&gt;
+      &lt;/p&gt;
+    &lt;/footer&gt;
+    &lt;script&gt;
+        //google analytics
+        (function(i,s,o,g,r,a,m){i[&#x27;GoogleAnalyticsObject&#x27;]=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,&#x27;script&#x27;,&#x27;//www.google-analytics.com/analytics.js&#x27;,&#x27;ga&#x27;);
+        ga(&#x27;create&#x27;, &#x27;UA-46840712-1&#x27;, &#x27;lynncyrin.me&#x27;);
+        ga(&#x27;send&#x27;, &#x27;pageview&#x27;);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
