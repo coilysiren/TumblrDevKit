@@ -15,7 +15,7 @@ class Builder(object):
             filename = sass_file_path.split(self.assets_dir)[-1].split('.')[0]
             css_path = self.output_dir + filename + '.css'
 
-            app.logger.info('Building \'{}\''.format(css_path))
+            print('Building \'{}\''.format(css_path))
 
             sass_args = {
                 'source': '{}'.format(sass_file_path),
@@ -28,7 +28,7 @@ class Builder(object):
                 preexec_fn=os.setsid,
                 stdout=subprocess.PIPE
             )
-        app.logger.info('Completed Build')
+        print('Completed Build')
 
     def start(self):
         from watchdog.observers import Observer
@@ -40,4 +40,4 @@ class Builder(object):
         watch = Observer()
         watch.schedule(handler, self.assets_dir, recursive=True)
         watch.start()
-        app.logger.info('Watching \'{}\' for changes'.format(self.assets_dir))
+        print('Watching \'{}\' for changes'.format(self.assets_dir))
