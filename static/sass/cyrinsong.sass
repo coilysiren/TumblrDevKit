@@ -1,0 +1,37 @@
+// colors
+
+$color_primary: unquote("{color:primary}")
+$color_primary: rgb(244, 231, 144) !default
+
+$color_secondary: unquote("{color:secondary}"})
+$color_secondary: #397D02 !default
+
+$color_accent: unquote("{color:accent}")
+$color_accent: rgb(130, 147, 227) !default
+
+// fonts
+
+$font_title: unquote("{font:title}")
+$font_title: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif !default
+
+$font_body: unqoute("{font:body}")
+$font_body: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default
+
+// color, style, flair
+@import "styles/body"
+@import "styles/nav"
+@import "styles/main"
+@import "styles/sidebar"
+@import "styles/forms"
+@import "styles/footer"
+
+// sizing, shapes, any other generic things
+@import "layouts/body"
+@import "layouts/nav"
+@import "layouts/main"
+@import "layouts/sidebar"
+@import "layouts/forms"
+@import "layouts/footer"
+
+// overrides for nonstandard / external CSS
+@import "overrides/external"

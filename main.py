@@ -9,12 +9,22 @@ from dotenv import load_dotenv
 
 # local
 import deploy
+import sass_builder
+import html_builder
 
 
 load_dotenv('.env')
 app = flask.Flask(__name__)
-@app.before_first_request(deploy.build_themes)
-# find themes at static/themes/build/blogname.html
+
+
+@app.before_first_request
+def setup():
+
+    sassbuilder = sass_builder.Builder('static/sass/', 'static/css/')
+    sassbuilder.start()
+    sassbuilder.compile_sass()
+
+    deploy.build_themes()
 
 
 if __name__ == '__main__':

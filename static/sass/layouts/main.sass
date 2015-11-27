@@ -1,0 +1,51 @@
+// main content block for generic content (ie. articles and messages, not forms)
+
+main.col-sm-8
+    min-height: 600px
+
+main
+    article:first-child
+        margin-top: 0px
+
+article
+    $article-x-padding: 40px
+    $article-y-padding: 10px
+    $article-border-width: 5px
+
+    margin: 40px 0
+    border-width: $article-border-width
+    padding: $article-y-padding $article-x-padding
+    border-radius: 20px
+    box-shadow: 10px 5px 3px 3px $filler_shadow
+
+    h3
+        padding: 20px 35px
+        margin: (-$article-y-padding - $article-border-width) (-$article-x-padding) 15px
+        border-top-left-radius: 20px
+        border-top-right-radius: 20px
+        line-height: 1.5em
+
+    h4
+        padding: 5px
+        line-height: 1.5em
+
+    blockquote
+        border-left: 5px solid $color_secondary
+
+    img
+        padding: 20px 40px
+        max-width: 100%
+        max-height: 100%
+
+// small screens
+
+@media all and (max-width: 768px)
+
+    main.col-sm-8
+        padding: 0
+
+    article
+        border-radius: 0
+
+        h3
+            border-radius: 0
