@@ -22,7 +22,7 @@ class Builder(object):
                 'output': '{}'.format(css_path),
             }
             subprocess.call('''
-                sassc -m {source} {output} -s compressed
+                sassc {source} {output} -s expanded
                 '''.format(**sass_args),
                 shell=True,
                 preexec_fn=os.setsid,
