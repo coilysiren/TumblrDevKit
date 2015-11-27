@@ -20,8 +20,18 @@ def format_metadata(blog_name, html):
         with open(sass_file, 'r') as f:
             sass = f.read()
 
+        # for example content:
+        # $color_primary: unquote("{color:primary}")
+        # $color_primary: rgb(244, 231, 144) !default
         variables = re.search('''
-^(\$\w+):\s*unquote\(\"\{([\w\s:]+)\}\"\);*(?:\s\#[\s\S]*?)*?\s*?\1:\s([\w\s,\-\(\)]*?)!default;*$
+            ^(\$\w+):                       # $color_primary
+                \s*unquote\                 # unqoute
+                (\"\{([\w\s:]+)\}\"\);*     # ("{color:primary")
+                (?:\s\#[\s\S]*?)*?          # any comments / whitespace
+
+            \s*?\1:                         # $color_primary
+                \s([\w\s,\-\(\)]*?)         # rgb(244, 231, 144)
+                !default;*$                 # !default
             ''', sass, flags=[re.I, re.M, re.X])
 
         print(variables)
