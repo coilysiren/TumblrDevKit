@@ -16,7 +16,7 @@ metadata_tag = '<meta name="{}" content="{}"/>'
 
 
 def make_diff(original, edited):
-    if ENV['DEBUG']:
+    if bool(ENV.get('DEBUG', False)):
         diff = context_diff(original.splitlines(), edited.splitlines())
         print('\nhtml diff: \n\n')
         pprint(list(diff))
