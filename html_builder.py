@@ -24,12 +24,12 @@ def format_metadata(blog_name, html):
         # $color_primary: unquote("{color:primary}")
         # $color_primary: rgb(244, 231, 144) !default
         variables = re.search('''
-            ^(\$\w+):                       # $color_primary
+            ^(\$\w+):                       # $color_primary:
                 \s*unquote\                 # unqoute
                 (\"\{([\w\s:]+)\}\"\);*     # ("{color:primary")
-                (?:\s\#[\s\S]*?)*?          # any comments / whitespace
+                (?:\s\#.*?)*?\s*?           # any comments / whitespace
 
-            \s*?\1:                         # $color_primary
+            \1:                             # $color_primary:
                 \s([\w\s,\-\(\)]*?)         # rgb(244, 231, 144)
                 !default;*$                 # !default
             ''', sass, flags=[re.I, re.M, re.X])
