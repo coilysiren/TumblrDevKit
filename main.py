@@ -18,13 +18,14 @@ app = flask.Flask(__name__)
 
 
 @app.before_first_request
-def setup():
-
+def setup_sass():
     sassbuilder = sass_builder.Builder('static/sass/', 'static/css/')
     sassbuilder.start()
     sassbuilder.compile_sass()
 
-    deploy.build_themes()
+@app.before_request
+def setup_html():
+    html_builder.build_themes()
 
 
 if __name__ == '__main__':
