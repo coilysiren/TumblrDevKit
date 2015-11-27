@@ -29,4 +29,7 @@ def setup_html():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=int(ENV.get('PORT', 5000)))
+    app.run(
+        debug=bool(ENV.get('DEBUG', False)),
+        port=int(ENV.get('PORT', 5000))
+    )
