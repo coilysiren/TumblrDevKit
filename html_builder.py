@@ -21,7 +21,7 @@ def format_metadata(blog_name, html):
             sass = f.read()
 
         variables = re.search('''
-
+^(\$\w+):\s*unquote\(\"\{([\w\s:]+)\}\"\);*(?:\s\#[\s\S]*?)*?\s*?\1:\s([\w\s,\-\(\)]*?)!default;*$
             ''', sass, flags=[re.I, re.M, re.X])
 
         print(variables)
