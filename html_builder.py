@@ -70,7 +70,7 @@ def format_metadata(blog_name, html):
 
 def format_style(blog_name, html):
     _html = html
-    style_file = glob('static/css/'+blog_name'.*')
+    style_file = glob('static/css/'+blog_name+'.*')
 
     # check if a style file with the same name as the blog exists
     if style_file:
