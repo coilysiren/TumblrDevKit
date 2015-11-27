@@ -18,9 +18,8 @@ metadata_tag = '<meta name="{}" content="{}"/>'
 def make_diff(original, edited):
     if bool(ENV.get('DEBUG', False)):
         diff = context_diff(original.splitlines(), edited.splitlines())
-        print('\nhtml diff: \n\n')
+        print('html diff:')
         pprint(list(diff))
-        print('\n')
 
 def format_metadata(blog_name, html):
     _html = html
