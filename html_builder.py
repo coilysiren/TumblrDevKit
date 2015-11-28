@@ -2,13 +2,12 @@
 import re
 from glob import glob
 from html import escape
-from pprint import pprint
 from os import environ as ENV
-from difflib import context_diff
+from difflib import unified_diff
 
 # external
+import colorama
 from dotenv import load_dotenv
-
 
 load_dotenv('.env')
 style_tag = '<style type="text/css" source="local">{}</style>'
@@ -17,10 +16,17 @@ metadata_tag = '<meta name="{}" content="{}"/>'
 
 def make_diff(original, edited):
     if bool(ENV.get('DEBUG', False)):
-        diff = context_diff(original.splitlines(), edited.splitlines())
-        print('\nhtml diff: \n\n')
-        pprint(list(diff))
-        print('\n')
+        colorama.init(autoreset=True)
+        diff = unified_diff(original.splitlines(), edited.splitlines(), n=1)
+        for line in diff:
+            if line[0] == '-':
+                print(colorama.Fore.RED+line)
+            elif line[0] == '+':
+                print(colorama.Fore.GREEN+line)
+            elif line[0] == '@':
+                print(colorama.Fore.BLUE+line)
+            else:
+                print(line)
 
 def format_metadata(blog_name, html):
     _html = html
