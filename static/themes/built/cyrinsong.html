@@ -11,13 +11,169 @@
     &lt;link rel=&quot;shortcut icon&quot; href=&quot;{Favicon}&quot;&gt;
     &lt;link rel=&quot;apple-touch-icon&quot; href=&quot;{PortraitURL-128}&quot;&gt;
     &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; href=&quot;{RSS}&quot;&gt;
-    &lt;meta name=&quot;{}&quot; content=&quot;{}&quot;/&gt;
+    &lt;meta name=&quot;color:primary&quot; content=&quot;rgb(244, 231, 144)&quot;/&gt;
+&lt;meta name=&quot;color:secondary&quot; content=&quot;#397D02&quot;/&gt;
+&lt;meta name=&quot;color:accent&quot; content=&quot;rgb(130, 147, 227)&quot;/&gt;
+&lt;meta name=&quot;font:title&quot; content=&quot;Montserrat, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, sans-serif&quot;/&gt;
+&lt;meta name=&quot;font:body&quot; content=&quot;&#x27;Lato&#x27;, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, sans-serif&quot;/&gt;
+
     &lt;!-- resources --&gt;
     &lt;link href=&quot;http://fonts.googleapis.com/css?family=Montserrat:400,700&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
     &lt;link href=&quot;http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
     &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css&quot; rel=&#x27;stylesheet&#x27; type=&#x27;text/css&#x27;&gt;
     &lt;link href=&quot;//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
     &lt;style type=&quot;text/css&quot; source=&quot;local&quot;&gt;html, body {
+  background-color: #e7e7e7;
+  font-family: {font:body};
+  color: #000000;
+  font-size: 16px;
+}
+
+a {
+  font-weight: bold;
+  color: {color:accent};
+}
+
+@media all and (max-width: 768px) {
+  body {
+    font-size: 1.1em;
+  }
+}
+
+nav i {
+  font-size: 35px;
+}
+
+.navbar-default {
+  box-shadow: 0 0 5px 1px {color:primary};
+  background-color: {color:primary};
+  border-style: none;
+}
+
+.navbar-default .navbar-nav &gt; li &gt; a,
+.navbar-default .navbar-brand {
+  color: #fff;
+}
+
+.navbar-default .navbar-nav &gt; li &gt; a:hover, .navbar-default .navbar-nav &gt; li &gt; a:focus,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: {color:primary};
+}
+
+.navbar-default .navbar-collapse {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+#navbar-button {
+  border-style: none;
+  background-color: #fff;
+}
+
+#navbar-button .icon-bar {
+  background-color: {color:primary};
+}
+
+#navbar-button:focus, #navbar-button:hover {
+  background-color: {color:primary};
+}
+
+nav {
+  color: {color:primary};
+  background-color: #e7e7e7;
+  transition: color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+  border: none;
+  box-shadow: 0 0 10px #000000;
+  font-size: 18px;
+  font-weight: bold;
+  list-style: none;
+  box-shadow: 0 0 10px #000000;
+}
+
+.navbar {
+  border: none;
+}
+
+nav .navbar-nav &gt; li &gt; a {
+  background-color: inherit;
+  color: inherit;
+  list-style-type: none;
+}
+
+.nav &gt; li &gt; a:hover {
+  background-color: transparent;
+}
+
+.nav &gt; li {
+  transition: border-bottom-width 0.2s ease-in-out;
+}
+
+.nav &gt; li:hover,
+.nav &gt; li:active {
+  color: {color:accent};
+  border-bottom-color: {color:accent};
+  border-bottom-width: 6px;
+  border-bottom-style: solid;
+}
+
+nav i,
+nav span,
+nav button {
+  border: none;
+  color: inherit;
+  background-color: transparent;
+}
+
+@media all and (max-width: 768px) {
+  nav {
+    font-size: 1.2em;
+  }
+}
+
+article {
+  border-style: solid;
+  border-color: {color:primary};
+  background-color: #EFEFEF;
+}
+
+article h1, article h2, article h3, article h3 a, article h4, article h4 a, article h5 {
+  text-align: center;
+  color: {color:primary};
+  font-family: {font:title};
+  font-weight: bold;
+}
+
+article h3 {
+  background-color: {color:primary};
+}
+
+.avatar {
+  text-align: center;
+}
+
+.sidebar-module-about {
+  background-color: {color:primary};
+  font-size: 0.9em;
+}
+
+footer {
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+  background-color: {color:primary};
+  box-shadow: 0 0 5px 1px {color:primary};
+}
+
+footer a {
+  color: {color:accent};
+}
+
+footer a:hover, footer a:focus {
+  color: {color:primary};
+}
+
+html, body {
   padding: 0;
   margin: 0;
   width: 100%;
@@ -252,6 +408,47 @@ footer {
 
 footer p:last-child {
   margin-bottom: 0;
+}
+
+.navbar-nav &gt; li {
+  float: left !important;
+}
+
+.navbar-right {
+  float: right !important;
+}
+
+.fa-linkedin {
+  color: #4875B4;
+}
+
+.fa-twitter {
+  color: #33CCFF;
+}
+
+.fa-skype {
+  color: #12A5F4;
+}
+
+.fa-envelope {
+  color: gray;
+}
+
+.fa-github {
+  color: black;
+}
+
+.fa-rss-square {
+  color: orange;
+}
+
+.fa-dollar {
+  color: green;
+}
+
+.twitter-tweet {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 {CustomCSS}&lt;/style&gt;
   &lt;/head&gt;
