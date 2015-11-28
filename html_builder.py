@@ -103,12 +103,9 @@ def build_themes():
         with open('static/themes/'+blog_name+'.html', 'r') as f:
             html = f.read()
 
-        # if there's a style format tag, then this blog requires local CSS
+        # if there's a style_tag, then this blog requires locally built CSS
         if style_tag in html:
             html = format_style(blog_name, html)
-        # if no style format tag, then the blog CSS in already in the HTML
-        else:
-            print('[WARNING] Could not find '+style_tag+' for theme '+theme_path)
 
         # final content goes inside of static/themes/built for webdriver to pick up
         html = escape(html)
