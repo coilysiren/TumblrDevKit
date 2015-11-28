@@ -69,7 +69,7 @@ def format_metadata(blog_name, html):
             metadata_replacement += _replace+'\n'
 
         # add tags to the html
-        html.replace(metadata_tag, metadata_replacement)
+        html = html.replace(metadata_tag, metadata_replacement)
         print('[INFO] formatted metadata for '+blog_name+' .html')
         make_diff(_html, html)
         return html
