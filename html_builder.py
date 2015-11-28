@@ -36,8 +36,6 @@ def format_metadata(blog_name, html):
         return html
 
     else:
-        metadata_replacement = ''
-
         # get sass file
         sass_file = glob('static/sass/'+blog_name+'.*')[0]
         with open(sass_file, 'r') as f:
@@ -63,9 +61,12 @@ def format_metadata(blog_name, html):
             print(Fore.RED+'[WARNING] Variables in '+sass_file+' not represent or incorrectly formatted')
             return html
 
+        metadata_replacement = ''
         # format the variables into metadata tags
         for variable in sass_variables:
-            _replace = metadata_tag.format(variable.group(2), variable.group(3))
+            name = variable[1]
+            default = variable[2].replace('"',"'")
+            _replace = metadata_tag.format(name, default)
             metadata_replacement += _replace+'\n'
 
         # add tags to the html
