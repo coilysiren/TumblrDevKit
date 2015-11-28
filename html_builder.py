@@ -64,6 +64,7 @@ def format_metadata(blog_name, html):
 
         # add tags to the html
         html.replace(metadata_tag, metadata_replacement)
+        print('[INFO] formatted metadata for '+blog_name+' .html')
         make_diff(_html, html)
         return html
 
@@ -89,6 +90,7 @@ def format_style(blog_name, html):
     style_replacement = style_tag.format(css)
 
     html = html.replace(style_tag, style_replacement)
+    print('[INFO] formatted styles for '+blog_name+' .html')
     make_diff(_html, html)
     return html
 
