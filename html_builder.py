@@ -32,7 +32,7 @@ def format_metadata(blog_name, html):
     _html = html
 
     if metadata_tag not in html:
-        print('[WARNING] Could not find '+metadata_tag+' for theme '+blog_name)
+        print(Fore.RED+'[WARNING] Could not find '+metadata_tag+' for theme '+blog_name)
         return html
 
     else:
@@ -60,7 +60,7 @@ def format_metadata(blog_name, html):
             ,sass)
 
         if not sass_variables:
-            print('[WARNING] Variables in '+sass_file+' not represent or incorrectly formatted')
+            print(Fore.RED+'[WARNING] Variables in '+sass_file+' not represent or incorrectly formatted')
             return html
 
         # format the variables into metadata tags
