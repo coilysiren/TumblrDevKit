@@ -78,7 +78,7 @@ def format_style(blog_name, html):
         # when there's a style file there's most likely custom colors to format
         html = format_metadata(blog_name, html)
 
-    # if no style file then use the default one
+    # if it doesn't then use the default one
     else:
         style_file = 'static/css/default.css'
 
