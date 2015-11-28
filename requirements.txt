@@ -7,6 +7,7 @@ Pygments==2.0.2
 Werkzeug==0.10.4
 argh==0.26.1
 click==5.1
+colorama==0.3.3
 decorator==4.0.4
 docopt==0.6.2
 httplib2==0.9.2
@@ -15,6 +16,7 @@ ipython==4.0.0
 ipython-genutils==0.1.0
 itsdangerous==0.24
 jedi==0.9.0
+libsass==0.9.2
 oauth2==1.9.0.post1
 ordereddict==1.1
 path.py==8.1.2
