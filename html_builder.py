@@ -44,8 +44,8 @@ def format_metadata(blog_name, html):
         # get the variables to input into the html
         # inside the sass file they should look like so:
         #
-        # $color_VAR: unquote("{color:VAR}")
-        # $color_VAR: rgb(XXX, XXX, XXX) !default
+        # $VARIABLE: unquote("{color:Variable}")
+        # $VARIABLE: rgb(X,X,X) !default
         sass_variables = re.findall(\
             r'(?im)'+\
             r'^(\$\w+):'+\
