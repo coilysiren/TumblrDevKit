@@ -18,8 +18,20 @@ Tumblr command line deployment and Sass building development kit
 
 (required for any of the features)
 
-1. Create a theme file inside `static/themes/` (ex: `static/themes/bestcatpics.html`)
-2. Start the flask server with `$ python server.py`
+1. Install the global python requirements
+  * python 3.4
+  * python 3.4 development package
+  * python virtualenv
+  * python pip
+
+2. Download, setup the environment
+
+        $ git clone http://github.com/LynnCo/TumblrDevKit.git
+        $ cd TumblrDevKit
+        $ virtualenv -p python3.4 venv && source venv/bin/activate && pip install -r requirements.txt
+
+3. Create a theme file inside `static/themes/` (ex: `static/themes/bestcatpics.html`)
+4. Start the flask server with `$ python server.py`
 
 ### Setup: Command Line Deploy
 
