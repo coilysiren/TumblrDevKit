@@ -50,9 +50,9 @@ Tumblr command line deployment and Sass building development kit
 
 ## Relevant Links
 
-[Tumblr's Theme Docs](www.tumblr.com/docs/en/custom_themes)
-[SASS's docs](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
+* [Tumblr's Theme Docs](www.tumblr.com/docs/en/custom_themes)
+* [SASS's docs](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
 
----
+## Contact
 
-If something is broken (this is my first automation tool, so things will likely break) @ [lynncyrin on twitter](twitter.com/lynncyrin)
+@ [lynncyrin on twitter](twitter.com/lynncyrin) for all your "hey this script is horribly broken" needs
