@@ -18,11 +18,9 @@ Tumblr command line deployment and Sass building development kit
 
 (required for any of the features)
 
-1. Install the global python requirements
-  * python 3.4
-  * python 3.4 development package
-  * python virtualenv
-  * python pip
+1. Install the global python requirements (with apt-get or the relevant thing for your platform)
+
+        $ sudo apt-get install python3.4 python3.4-dev python-pip python-virtualenv
 
 2. Download, setup the environment
 
@@ -35,7 +33,7 @@ Tumblr command line deployment and Sass building development kit
 
 ### Setup: Command Line Deploy
 
-1. Copy the env file (`$ cp .env.example .env`) and fill it in with your login. Make sure the newly created file contents aren't shown in source control.
+1. Copy the env file (`$ cp .env.example .env`) and fill it in with your login info. Make sure the newly created file contents aren't shown in source control.
 2. Whenever you want to push changes to your theme to Tumblr, run `$ python deploy.py`
 
 ### Setup: CSS Builder
