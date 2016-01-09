@@ -1,0 +1,60 @@
+// nav menu styles
+
+nav
+    text-align: center
+
+.navbar-center
+    position: absolute
+    text-align: center
+    padding-top: 8px
+
+nav .navbar-nav>li>a
+    padding: 5px 0
+
+nav .navbar-nav>li>button
+    padding: 5px 0
+
+.navbar-btn
+    margin: 0
+
+.navbar-nav
+    margin: 0
+
+.navbar-nav>li
+    margin-right: 15px
+
+.navbar-nav>li:last-of-type
+    margin-right: 0
+
+nav li
+    height: 50px
+
+nav img
+    vertical-align: bottom
+
+nav span
+    vertical-align: super
+    margin-left: 2px
+
+// small screens
+
+@media all and (max-width: 768px)
+    // hide extra text on mobile navbar
+    .navbar-nav>li span
+        display: none !important
+
+    nav
+        padding-left: 15px
+        padding-right: 15px
+
+    .navbar-nav>li
+        margin-right: 0
+
+    nav .ul
+        width: 100%
+        display: flex
+        justify-content: space-between
+
+    nav .navbar-nav>li>a, nav .navbar-nav>li>button
+        padding-left: 15px
+        padding-right: 15px

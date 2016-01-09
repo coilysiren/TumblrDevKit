@@ -1,0 +1,41 @@
+// body, inline, global
+
+html, body
+    padding: 0
+    margin: 0
+    width: 100%
+    height: 100%
+
+body
+    overflow-x: hidden
+    padding-top: 80px
+    min-width: 320px
+
+body.flush-top
+    padding-top: 0;
+
+h1, h2, h3, h4, h5, p
+    padding: 5px 10px
+    line-height: 1.5em
+
+h1, h2
+    text-align: center
+
+h1 img
+    width: 32px
+
+// small screens
+
+@media all and (max-width: 768px)
+    .container, .container-fluid
+        padding: 0
+
+// small vs large hidden content
+
+@media all and (max-width: 768px)
+    .show-large
+        display: none !important
+
+@media all and (min-width: 768px)
+    .show-small
+        display: none !important
