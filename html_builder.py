@@ -2,13 +2,12 @@
 import re
 from glob import glob
 from html import escape
-from pprint import pprint
 from os import environ as ENV
-from difflib import context_diff
+from difflib import unified_diff
 
 # external
+import colorama
 from dotenv import load_dotenv
-
 
 load_dotenv('.env')
 style_tag = '<style type="text/css" source="local">{}</style>'
@@ -17,20 +16,26 @@ metadata_tag = '<meta name="{}" content="{}"/>'
 
 def make_diff(original, edited):
     if bool(ENV.get('DEBUG', False)):
-        diff = context_diff(original.splitlines(), edited.splitlines())
-        print('html diff:')
-        pprint(list(diff))
+        colorama.init(autoreset=True)
+        diff = unified_diff(original.splitlines(), edited.splitlines(), n=1)
+        for line in diff:
+            if line[0] == '-':
+                print(colorama.Fore.RED+line)
+            elif line[0] == '+':
+                print(colorama.Fore.GREEN+line)
+            elif line[0] == '@':
+                print(colorama.Fore.BLUE+line)
+            else:
+                print(line)
 
 def format_metadata(blog_name, html):
     _html = html
 
     if metadata_tag not in html:
-        print('[WARNING] Could not find '+metadata_tag+' for theme '+blog_name)
+        print(Fore.RED+'[WARNING] Could not find '+metadata_tag+' for theme '+blog_name)
         return html
 
     else:
-        metadata_replacement = ''
-
         # get sass file
         sass_file = glob('static/sass/'+blog_name+'.*')[0]
         with open(sass_file, 'r') as f:
@@ -39,8 +44,8 @@ def format_metadata(blog_name, html):
         # get the variables to input into the html
         # inside the sass file they should look like so:
         #
-        # $color_VAR: unquote("{color:VAR}")
-        # $color_VAR: rgb(XXX, XXX, XXX) !default
+        # $VARIABLE: unquote("{color:Variable}")
+        # $VARIABLE: rgb(X,X,X) !default
         sass_variables = re.findall(\
             r'(?im)'+\
             r'^(\$\w+):'+\
@@ -53,16 +58,20 @@ def format_metadata(blog_name, html):
             ,sass)
 
         if not sass_variables:
-            print('[WARNING] Variables in '+sass_file+' not represent or incorrectly formatted')
+            print(Fore.RED+'[WARNING] Variables in '+sass_file+' not represent or incorrectly formatted')
             return html
 
+        metadata_replacement = ''
         # format the variables into metadata tags
         for variable in sass_variables:
-            _replace = metadata_tag.format(variable.group(2), variable.group(3))
+            name = variable[1]
+            default = variable[2].replace('"',"'")
+            _replace = metadata_tag.format(name, default)
             metadata_replacement += _replace+'\n'
 
         # add tags to the html
-        html.replace(metadata_tag, metadata_replacement)
+        html = html.replace(metadata_tag, metadata_replacement)
+        print('[INFO] formatted metadata for '+blog_name+' .html')
         make_diff(_html, html)
         return html
 
@@ -77,7 +86,7 @@ def format_style(blog_name, html):
         # when there's a style file there's most likely custom colors to format
         html = format_metadata(blog_name, html)
 
-    # if no style file then use the default one
+    # if it doesn't then use the default one
     else:
         style_file = 'static/css/default.css'
 
@@ -88,6 +97,7 @@ def format_style(blog_name, html):
     style_replacement = style_tag.format(css)
 
     html = html.replace(style_tag, style_replacement)
+    print('[INFO] formatted styles for '+blog_name+' .html')
     make_diff(_html, html)
     return html
 
@@ -102,12 +112,9 @@ def build_themes():
         with open('static/themes/'+blog_name+'.html', 'r') as f:
             html = f.read()
 
-        # if there's a style format tag, then this blog requires local CSS
+        # if there's a style_tag, then this blog requires locally built CSS
         if style_tag in html:
             html = format_style(blog_name, html)
-        # if no style format tag, then the blog CSS in already in the HTML
-        else:
-            print('[WARNING] Could not find '+style_tag+' for theme '+theme_path)
 
         # final content goes inside of static/themes/built for webdriver to pick up
         html = escape(html)
