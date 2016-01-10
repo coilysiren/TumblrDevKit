@@ -16,7 +16,7 @@ class Builder(object):
 
 
     def __init__(self, themes_dir, sass_dir):
-        self.style_tag = '<style type="text/css" source="local">{}</style>'
+        self.style_tag = '<style type="text/css">{}</style>'
         self.metadata_tag = '<meta name="{}" content="{}"/>'
         self.themes_dir = themes_dir
         self.sass_dir = sass_dir
@@ -51,7 +51,6 @@ class Builder(object):
         css = sass.compile(filename=sass_path, output_style='compressed')
         css += '{CustomCSS}'
 
-        style_replacement = self.style_tag.replace(' source="local"', '')
         style_replacement = style_replacement.format('\n'+css+'\n')
 
         html = html.replace(self.style_tag, style_replacement)
