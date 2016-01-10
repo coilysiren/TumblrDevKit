@@ -27,12 +27,11 @@ class Builder(object):
         themes = glob(self.themes_dir+'*.*')
 
         for theme_path in themes:
-
-            print('\nCreating theme for blog {}\n'.format(blog_name))
-
             blog_name = theme_path.split('/')[-1].split('.')[0]
             sass_path = glob(self.sass_dir+blog_name+'.*')[0]
             built_theme_path = self.themes_dir+'built/'+blog_name+'.html'
+
+            print('\nCreating theme for blog {}\n'.format(blog_name))
 
             with open(self.themes_dir+blog_name+'.html', 'r') as f:
                 html = f.read()
