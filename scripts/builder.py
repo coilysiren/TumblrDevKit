@@ -52,9 +52,9 @@ class Builder(object):
         css = sass.compile(filename=sass_path, output_style='compressed')
         css += '{CustomCSS}'
 
-        style_replacement = style_replacement.format('\n'+css+'\n')
+        replacement = Builder.style_tag.format('\n'+css+'\n')
+        html = Builder.replace_or_split(html, Builder.style_tag, replacement)
 
-        html = html.replace(Builder.style_tag, style_replacement)
         Builder.make_diff(_html, html)
         return html
 
@@ -85,19 +85,25 @@ class Builder(object):
             print(Fore.RED+'[WARNING] Variables in '+sass_path+' not represent or incorrectly formatted')
             return html
 
-        metadata_replacement = ''
-        # format the variables into metadata tags
+        # format the variables into metadata tags, add to HTML
+        replacement = ''
         for variable in sass_variables:
             name = variable[1]
             default = variable[2].replace('"',"'")
             _replace = Builder.metadata_tag.format(name, default)
-            metadata_replacement += '\n'+_replace
+            replacement += '\n'+_replace
+        html = Builder.replace_or_split(html, Builder.metadata_tag, replacement)
 
-        # add tags to the html
-        html = html.replace(Builder.metadata_tag, metadata_replacement)
         Builder.make_diff(_html, html)
         return html
 
+    def replace_or_split(html, tag, replacement):
+        if tag in html:
+            html = html.replace(tag, replacement)
+        else:
+            html_before, html_after = html.split('</head>')
+            html = html_before + replacement + '</head>' + html_after
+        return html
 
     def make_diff(original, edited):
         colorama.init(autoreset=True)
