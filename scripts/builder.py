@@ -103,7 +103,7 @@ class Builder(object):
             html = html.replace(tag, replacement)
         else:
             html_before, html_after = html.split('</head>')
-            html = html_before + replacement + '</head>' + html_after
+            html = html_before + replacement + '\n</head>' + html_after
         return html
 
 
