@@ -14,10 +14,11 @@ from colorama import Fore
 
 class Builder(object):
 
+    style_tag = '<style type="text/css">{}</style>'
+    metadata_tag = '<meta name="{}" content="{}"/>'
+
 
     def __init__(self, themes_dir, sass_dir):
-        self.style_tag = '<style type="text/css">{}</style>'
-        self.metadata_tag = '<meta name="{}" content="{}"/>'
         self.themes_dir = themes_dir
         self.sass_dir = sass_dir
 
@@ -33,8 +34,8 @@ class Builder(object):
             with open(self.themes_dir+blog_name+'.html', 'r') as f:
                 html = f.read()
 
-            html = self.format_style(blog_name, html, sass_path)
-            html = self.format_metadata(blog_name, html, sass_path)
+            html = Builder.format_style(blog_name, html, sass_path)
+            html = Builder.format_metadata(blog_name, html, sass_path)
 
             with open(built_theme_path, 'w') as f:
                 f.write(html)
@@ -45,7 +46,7 @@ class Builder(object):
             print('\thttp://{}.tumblr.com/customize\n'.format(blog_name))
 
 
-    def format_style(self, blog_name, html, sass_path):
+    def format_style(html, sass_path):
         _html = html
 
         css = sass.compile(filename=sass_path, output_style='compressed')
@@ -53,12 +54,12 @@ class Builder(object):
 
         style_replacement = style_replacement.format('\n'+css+'\n')
 
-        html = html.replace(self.style_tag, style_replacement)
+        html = html.replace(Builder.style_tag, style_replacement)
         Builder.make_diff(_html, html)
         return html
 
 
-    def format_metadata(self, blog_name, html, sass_path):
+    def format_metadata(html, sass_path):
         _html = html
 
         with open(sass_path, 'r') as f:
@@ -89,11 +90,11 @@ class Builder(object):
         for variable in sass_variables:
             name = variable[1]
             default = variable[2].replace('"',"'")
-            _replace = self.metadata_tag.format(name, default)
+            _replace = Builder.metadata_tag.format(name, default)
             metadata_replacement += '\n'+_replace
 
         # add tags to the html
-        html = html.replace(self.metadata_tag, metadata_replacement)
+        html = html.replace(Builder.metadata_tag, metadata_replacement)
         Builder.make_diff(_html, html)
         return html
 
