@@ -42,9 +42,9 @@ class Builder(object):
             with open(built_theme_path, 'w') as f:
                 f.write(html)
 
-            print('\nBuilt theme for blog {}:'.format(blog_name))
+            print('\nBuilt theme:'.format(blog_name))
             print('\tview-source:file:///{}/{}'.format(os.getcwd(), built_theme_path))
-            print('Url for customizing blog {}:'.format(blog_name))
+            print('Customize URL:'.format(blog_name))
             print('\thttp://{}.tumblr.com/customize\n'.format(blog_name))
 
 
