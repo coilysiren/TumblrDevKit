@@ -10,7 +10,6 @@ def watcher(directory, callback):
 
     handler = FileSystemEventHandler()
     handler.on_modified = callback
-    handler.on_created  = callback
 
     observer = Observer()
     observer.schedule(handler, directory, recursive=True)
