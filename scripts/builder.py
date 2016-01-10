@@ -14,10 +14,11 @@ from colorama import Fore
 
 class Builder(object):
 
+    style_tag = '<style type="text/css">{}</style>'
+    metadata_tag = '<meta name="{}" content="{}"/>'
+
 
     def __init__(self, themes_dir, sass_dir):
-        self.style_tag = '<style type="text/css" source="local">{}</style>'
-        self.metadata_tag = '<meta name="{}" content="{}"/>'
         self.themes_dir = themes_dir
         self.sass_dir = sass_dir
 
@@ -33,8 +34,8 @@ class Builder(object):
             with open(self.themes_dir+blog_name+'.html', 'r') as f:
                 html = f.read()
 
-            html = self.format_style(blog_name, html, sass_path)
-            html = self.format_metadata(blog_name, html, sass_path)
+            html = Builder.format_style(blog_name, html, sass_path)
+            html = Builder.format_metadata(blog_name, html, sass_path)
 
             with open(built_theme_path, 'w') as f:
                 f.write(html)
@@ -45,21 +46,20 @@ class Builder(object):
             print('\thttp://{}.tumblr.com/customize\n'.format(blog_name))
 
 
-    def format_style(self, blog_name, html, sass_path):
+    def format_style(html, sass_path):
         _html = html
 
         css = sass.compile(filename=sass_path, output_style='compressed')
         css += '{CustomCSS}'
 
-        style_replacement = self.style_tag.replace(' source="local"', '')
-        style_replacement = style_replacement.format('\n'+css+'\n')
+        replacement = Builder.style_tag.format('\n'+css+'\n')
+        html = Builder.replace_or_split(html, Builder.style_tag, replacement)
 
-        html = html.replace(self.style_tag, style_replacement)
         Builder.make_diff(_html, html)
         return html
 
 
-    def format_metadata(self, blog_name, html, sass_path):
+    def format_metadata(html, sass_path):
         _html = html
 
         with open(sass_path, 'r') as f:
@@ -85,19 +85,25 @@ class Builder(object):
             print(Fore.RED+'[WARNING] Variables in '+sass_path+' not represent or incorrectly formatted')
             return html
 
-        metadata_replacement = ''
-        # format the variables into metadata tags
+        # format the variables into metadata tags, add to HTML
+        replacement = ''
         for variable in sass_variables:
             name = variable[1]
             default = variable[2].replace('"',"'")
-            _replace = self.metadata_tag.format(name, default)
-            metadata_replacement += '\n'+_replace
+            _replace = Builder.metadata_tag.format(name, default)
+            replacement += '\n'+_replace
+        html = Builder.replace_or_split(html, Builder.metadata_tag, replacement)
 
-        # add tags to the html
-        html = html.replace(self.metadata_tag, metadata_replacement)
         Builder.make_diff(_html, html)
         return html
 
+    def replace_or_split(html, tag, replacement):
+        if tag in html:
+            html = html.replace(tag, replacement)
+        else:
+            html_before, html_after = html.split('</head>')
+            html = html_before + replacement + '</head>' + html_after
+        return html
 
     def make_diff(original, edited):
         colorama.init(autoreset=True)
