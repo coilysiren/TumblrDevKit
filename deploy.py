@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 load_dotenv('.env')
 
 
-def publish():
+def deploy():
     port = ENV.get('PORT', 5000)
     themes = glob('static/themes/built/*.html')
 
@@ -69,3 +69,6 @@ def publish():
         print('Saved blog {}'.format(blog))
 
     driver.quit()
+
+if __name__ == '__main__':
+    deploy()
