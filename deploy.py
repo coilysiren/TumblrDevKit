@@ -18,7 +18,7 @@ def deploy():
     themes = glob('static/themes/built/*.html')
 
     # if not running in debug mode, hide the window
-    if not ENV['DEBUG']:
+    if not ENV.get('DEBUG', True):
         display = Display(visible=0, size=(1366, 768))
         display.start()
 
