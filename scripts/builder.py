@@ -27,6 +27,9 @@ class Builder(object):
         themes = glob(self.themes_dir+'*.*')
 
         for theme_path in themes:
+
+            print('\nCreating theme for blog {}\n'.format(blog_name))
+
             blog_name = theme_path.split('/')[-1].split('.')[0]
             sass_path = glob(self.sass_dir+blog_name+'.*')[0]
             built_theme_path = self.themes_dir+'built/'+blog_name+'.html'
@@ -111,8 +114,8 @@ class Builder(object):
         colorama.init(autoreset=True)
         diff = unified_diff(original.splitlines(), edited.splitlines(), n=1)
         for line in diff:
-            if len(line) > 100:
-                line = line[:100] + ' (...)'
+            if len(line) > 160:
+                line = line[:160] + ' (...)'
 
             if line[0] == '-':
                 print(Fore.RED+line)
