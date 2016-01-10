@@ -16,7 +16,7 @@ def deploy():
     port = ENV.get('PORT', 5000)
     themes = glob('static/themes/built/*.html')
 
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     select = driver.find_element_by_css_selector
 
     # log in to tumblr
