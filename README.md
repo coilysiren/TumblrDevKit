@@ -13,7 +13,7 @@ Specifically, it:
 
 Get it
 
-    $ http://github.com/LynnCo/TumblrDevKit.git
+    $ git clone http://github.com/LynnCo/TumblrDevKit.git
     $ cd TumblrDevKit
 
 Create some HTML ([example](https://github.com/LynnCo/TumblrDevKit/blob/active/static/themes/cyrinsong.html))
