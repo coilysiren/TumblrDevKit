@@ -4,6 +4,7 @@ from time import sleep
 from os import environ as ENV
 
 # external
+from pyvirtualdisplay import Display
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -15,6 +16,11 @@ load_dotenv('.env')
 def deploy():
     port = ENV.get('PORT', 5000)
     themes = glob('static/themes/built/*.html')
+
+    # if not running in debug mode, hide the window
+    if not ENV['DEBUG']:
+        display = Display(visible=0, size=(1366, 768))
+        display.start()
 
     driver = webdriver.Chrome()
     select = driver.find_element_by_css_selector
