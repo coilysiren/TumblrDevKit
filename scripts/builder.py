@@ -34,8 +34,8 @@ class Builder(object):
             with open(self.themes_dir+blog_name+'.html', 'r') as f:
                 html = f.read()
 
-            html = Builder.format_style(blog_name, html, sass_path)
-            html = Builder.format_metadata(blog_name, html, sass_path)
+            html = Builder.format_style(html, sass_path)
+            html = Builder.format_metadata(html, sass_path)
 
             with open(built_theme_path, 'w') as f:
                 f.write(html)
