@@ -110,9 +110,10 @@ class Builder(object):
     def make_diff(original, edited):
         colorama.init(autoreset=True)
         diff = unified_diff(original.splitlines(), edited.splitlines(), n=1)
-        if len(line) > 100:
-            line = line[:100] + ' (...)'
         for line in diff:
+            if len(line) > 100:
+                line = line[:100] + ' (...)'
+
             if line[0] == '-':
                 print(Fore.RED+line)
             elif line[0] == '+':
