@@ -97,6 +97,7 @@ class Builder(object):
         Builder.make_diff(_html, html)
         return html
 
+
     def replace_or_split(html, tag, replacement):
         if tag in html:
             html = html.replace(tag, replacement)
@@ -104,6 +105,7 @@ class Builder(object):
             html_before, html_after = html.split('</head>')
             html = html_before + replacement + '</head>' + html_after
         return html
+
 
     def make_diff(original, edited):
         colorama.init(autoreset=True)
