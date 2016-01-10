@@ -41,12 +41,12 @@ Copy paste the built theme the `view-source:file:////...` address in your browse
 
 ## Tumblr Variables in your SASS
 
-You can format your SASS variables to be Tumblr theme customization variables (editable in the theme customization interface). The format for that is as follows
+You can format your SASS variables to be Tumblr theme customization variables (editable in the theme customization interface). The format for that is
 
     $VARIABLE: unquote("{TYPE:VARIABLE}")
     $VARIABLE: VALUE !default
 
-In BLOGNAME.sass it will look like this:
+In BLOGNAME.sass it will look like this
 
     $color_primary: unquote("{color:primary}")
     $color_primary: rgb(244, 231, 144) !default
