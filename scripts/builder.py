@@ -84,7 +84,7 @@ class Builder(object):
             ,sass_content)
 
         if not sass_variables:
-            print(Fore.RED+'[WARNING] Variables in '+sass_path+' not represent or incorrectly formatted')
+            print(Fore.RED+'[WARNING] Variables in '+sass_path+' not present or incorrectly formatted')
             return html
 
         # format the variables into metadata tags, add to HTML
