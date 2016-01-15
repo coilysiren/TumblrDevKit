@@ -1,20 +1,21 @@
 # TumblrDevKit
 
-## What is this???
+## About
 
 It takes a SASS file (or series of `@import`ed files) and sticks it inline in a Tumblr HTML theme. It's intended for manging several (3+) Tumblr blog themes, or just having a build process that pairs Tumblr themes with SASS.
 
 Specifically, it:
 
 * Builds a SASS file and puts it inside a `<style type="text/css"></style>` tag
-* Allows for Tumblr theme variables in the SASS files, which parse into HTML metadata tags
+* Allows for Tumblr theme variables in the SASS files, which parse into `<meta name="color:Heading text" content=""/>` style meta tags and `#title{color: {color:Heading text} }` style template strings
 
 ## Startup
 
-Get it
+Do some setup (requires `git`, `python`, `pip`)
 
     $ git clone http://github.com/LynnCo/TumblrDevKit.git
     $ cd TumblrDevKit
+    $ pip install -r requirements.txt
 
 Create some HTML ([example](https://github.com/LynnCo/TumblrDevKit/blob/active/static/themes/cyrinsong.html))
 
@@ -37,7 +38,7 @@ Run the script
         Customize URL:
             http://BLOGNAME.tumblr.com/customize
 
-Copy paste the built theme the `view-source:file:////...` address in your browser, or open that file in a text editor. It won't require any more edits before being pasted into Tumblr.
+Copy paste the built theme `view-source:file:////...` address in your browser, or open that file in a text editor. It won't require any more edits before being pasted into Tumblr. Also the filepath doesn't change between builds, so just reload the page to get new versions.
 
 ## Tumblr Variables in your SASS
 
@@ -57,3 +58,11 @@ In BLOGNAME.sass it will look like this
 Note that the variables **have** to be inside of BLOGNAME.sass, not imported from another file. The active branch [has in use examples](https://github.com/LynnCo/TumblrDevKit/blob/active/static/sass/cyrinsong.sass#L1-L18).
 
 The format is fairly fragile, so the script will tell you when you get it right / wrong
+
+## Notes
+
+* The SASS builder [adds](https://github.com/LynnCo/TumblrDevKit/blob/2e05780e4ccc3696bad1b379965d7abdd10e58e2/scripts/builder.py#L55) `{CustomCSS}` to the end of your style block
+* The intent of this tool is entirely SASS integration, so it doesn't change your HTML theme - except to add the CSS / meta tags of course, which [is shown to you in a diff.
+* This tool used to [parse Tumblr themes into Jinja2 themes](https://github.com/LynnCo/TumblrDevKit/blob/c1a7e88f8ae9500037b2cdef9df97980c0b63096/parser.py), rendered with a local Flask server. This allowed working on themes while entirely offline, but in the end that feature was more work than it was worth.
+* Similarly, it used to [deploy the theme Tumblr from command line](https://github.com/LynnCo/TumblrDevKit/blob/d825101b8b5a443a54d4524b03cb52e317c2f208/deploy.py), but Selenium turned out to be a very poor tool for that purpose.
+* I really want to hear about it if you used this!!!
