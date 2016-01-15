@@ -59,10 +59,10 @@ Note that the variables **have** to be inside of BLOGNAME.sass, not imported fro
 
 The format is fairly fragile, so the script will tell you when you get it right / wrong
 
-## Notes
+## Extra Stuff
 
-* The SASS builder [adds](https://github.com/LynnCo/TumblrDevKit/blob/2e05780e4ccc3696bad1b379965d7abdd10e58e2/scripts/builder.py#L55) `{CustomCSS}` to the end of your style block
-* The intent of this tool is entirely SASS integration, so it doesn't change your HTML theme - except to add the CSS / meta tags of course, which [is shown to you in a diff.
-* This tool used to [parse Tumblr themes into Jinja2 themes](https://github.com/LynnCo/TumblrDevKit/blob/c1a7e88f8ae9500037b2cdef9df97980c0b63096/parser.py), rendered with a local Flask server. This allowed working on themes while entirely offline, but in the end that feature was more work than it was worth.
-* Similarly, it used to [deploy the theme Tumblr from command line](https://github.com/LynnCo/TumblrDevKit/blob/d825101b8b5a443a54d4524b03cb52e317c2f208/deploy.py), but Selenium turned out to be a very poor tool for that purpose.
+* The SASS builder adds `{CustomCSS}` to the end of your style block
+* The intent of this tool is entirely SASS integration, so it doesn't change your HTML theme - except to add the CSS / meta tags of course.
+* This tool used to [parse Tumblr themes into Jinja2 themes](https://github.com/LynnCo/TumblrDevKit/blob/c1a7e88f8ae9500037b2cdef9df97980c0b63096/parser.py), then rendered them with a local Flask server. This allowed working on themes while entirely offline, but in the end that feature was more work than it was worth.
+* Similarly, it used to [deploy to Tumblr from command line](https://github.com/LynnCo/TumblrDevKit/blob/d825101b8b5a443a54d4524b03cb52e317c2f208/deploy.py), but Selenium turned out to be a very poor tool for that purpose.
 * I really want to hear about it if you used this!!!
