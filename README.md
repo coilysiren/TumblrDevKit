@@ -59,7 +59,7 @@ Note that the variables **have** to be inside of BLOGNAME.sass, not imported fro
 
 The format is fairly fragile, so the script will tell you when you get it right / wrong
 
-## Extra Stuff
+## Random Stuff
 
 * The SASS builder adds `{CustomCSS}` to the end of your style block
 * The intent of this tool is entirely SASS integration, so it doesn't change your HTML theme - except to add the CSS / meta tags of course.
